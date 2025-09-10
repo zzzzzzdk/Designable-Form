@@ -52,9 +52,9 @@ const engine = useMemo( () =>
 项目提供了丰富的表单组件，包括基础输入组件、布局组件、数组组件等，并通过 ResourceWidget 进行分类展示：
 
 ```TSX
-<ResourceWidgettitle="sources.Inputs"sources={[Input, Password, NumberPicker, Rate, Slider, MyCustom]}/>
-<ResourceWidget title="sources.Layouts" sources={[Card, FormGrid, Space]} />
-<ResourceWidgettitle="sources.Arrays"sources={[ArrayCards, ArrayTable]}/>
+<ResourceWidgettitle="输入控件"sources={[Input, Password, NumberPicker, Rate, Slider, MyCustom]}/>
+<ResourceWidget title="布局控件" sources={[Card, FormGrid, Space]} />
+<ResourceWidgettitle="数组控件"sources={[ArrayCards, ArrayTable]}/>
 ```
 
 ### 3.设计树与 Schema 转换

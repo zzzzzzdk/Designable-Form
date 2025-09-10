@@ -4,11 +4,7 @@ import { createForm, isVoidField } from '@formily/core';
 import { createSchemaField } from '@formily/react';
 import { GlobalRegistry } from '@/packages/designable-core';
 import { requestIdle } from '@/packages/designable-shared';
-import {
-  usePrefix,
-  TextWidget,
-  useCssInJs,
-} from '@/packages/designable-react';
+import { usePrefix, TextWidget, useCssInJs } from '@/packages/designable-react';
 import { MonacoInput } from '@/packages/designable-react-settings-form';
 import {
   Form,
@@ -188,12 +184,12 @@ export const ReactionsSetter: React.FC<IReactionsSetterProps> = (props) => {
         )}
         width="70%"
         centered
-        bodyStyle={{ padding: 10 }}
+        style={{ padding: 10 }}
         transitionName=""
         maskTransitionName=""
         open={modalVisible}
         onCancel={closeModal}
-        destroyOnClose
+        destroyOnHidden
         onOk={() => {
           form.submit((values) => {
             props.onChange?.(values);

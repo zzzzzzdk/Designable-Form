@@ -26,12 +26,13 @@ export interface IResourceWidgetProps {
 
 export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
   (props) => {
+    const { defaultExpand = true } = props;
     const prefix = usePrefix('resource');
     const { hashId, wrapSSR } = useCssInJs({
       prefix,
       styleFun: genResourceWidgetStyle,
     });
-    const [expand, setExpand] = useState(props.defaultExpand);
+    const [expand, setExpand] = useState(defaultExpand);
     const renderNode = (source: IResource) => {
       const { node, icon, title, thumb, span } = source;
       return (
@@ -50,7 +51,7 @@ export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
             <IconWidget
               className={cls(prefix + '-item-icon', hashId)}
               infer={icon}
-              style={{ width: 16, height: 16 }}
+              style={{ width: 150, height: 40 }}
             />
           )}
           <span className={cls(prefix + '-item-text', hashId)}>
@@ -63,7 +64,7 @@ export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
         </div>
       );
     };
-    const sources = props.sources.reduce<IResource[]>((buf, source) => {
+    const sources = props.sources?.reduce<IResource[]>((buf, source) => {
       if (isResourceList(source)) {
         return buf.concat(source);
       } else if (isResourceHost(source)) {
@@ -116,7 +117,3 @@ export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
     );
   },
 );
-
-ResourceWidget.defaultProps = {
-  defaultExpand: true,
-};

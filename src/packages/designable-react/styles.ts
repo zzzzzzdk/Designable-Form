@@ -38,7 +38,7 @@ export const genAppStyle = (
       },
       [`*[data-content-editable]:not(*[contenteditable='true'])`]: {
         [`&:empty::before`]: {
-          content: 'Please Input',
+          content: '"Please Input"',
           display: 'block',
           opacity: 0.6,
         },

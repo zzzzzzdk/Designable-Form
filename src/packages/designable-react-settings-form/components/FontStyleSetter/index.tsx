@@ -16,7 +16,7 @@ const createFontFamilyOptions = (fonts: string[]) => {
   return fonts.map((font) => {
     const splited = font.split('=');
     const label = splited?.[0];
-    const value = splited?.[1];
+    const value = splited?.[1] || '';
     return {
       label: <span style={{ fontFamily: value }}>{label}</span>,
       value,

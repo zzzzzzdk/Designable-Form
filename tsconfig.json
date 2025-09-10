@@ -25,6 +25,6 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx"
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "vite.config.ts", "public/static/monaco"],
   "//": "此文件已整合所有TS配置，包含应用和Node环境所需的选项"
 }

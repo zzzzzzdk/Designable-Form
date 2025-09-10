@@ -4,11 +4,12 @@ const Registry = {
   cdn: '//cdn.jsdelivr.net/npm',
 };
 
-export const setNpmCDNRegistry = (registry: string) => {
-  Registry.cdn = registry;
+export const setNpmCDNRegistry = () => { // registry: string 
+  // Registry.cdn = registry;
   loader.config({
     paths: {
-      vs: `${registry}/monaco-editor@0.30.1/min/vs`,
+      // vs: `${registry}/monaco-editor@0.30.1/min/vs`,
+      vs: `/static/monaco/monaco-editor@0.30.1/min/vs`,
     },
   });
 };

@@ -10,7 +10,8 @@ import {
   CompositePanel,
   Designer,
   DesignerToolsWidget,
-  HistoryWidget, IDesignerComponents,
+  HistoryWidget,
+  IDesignerComponents,
   OutlineTreeWidget,
   ResourceWidget,
   SettingsPanel,
@@ -35,13 +36,40 @@ import {
   FormGrid,
   Space,
   Slider,
-  MyCustom
+  Text,
+  Select,
+  TreeSelect,
+  Cascader,
+  Transfer,
+  Checkbox,
+  Radio,
+  DatePicker,
+  TimePicker,
+  Upload,
+  Switch,
+  ObjectContainer,
+  FormTab,
+  FormCollapse,
+  FormLayout,
+  MyCustom,
 } from '@/packages/designable-formily-antd';
-import { SettingsForm } from '@/packages/designable-react-settings-form';
+import {
+  SettingsForm,
+  MonacoInput,
+  setNpmCDNRegistry
+} from '@/packages/designable-react-settings-form';
 import { transformToSchema } from '@/packages/designable-formily-transformer';
 import { Button } from 'antd';
-import { PreviewWidget } from './PreviewWidget';
+// import { FormLayout } from '@formily/antd-v5';
+import {
+  PreviewWidget,
+  MarkupSchemaWidget,
+  ActionsWidget,
+  SchemaEditorWidget,
+  LogoWidget
+} from '@/widgets'
 
+setNpmCDNRegistry();
 
 function App() {
   const engine = useMemo(
@@ -54,7 +82,7 @@ function App() {
               [KeyCode.Control, KeyCode.S],
             ],
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            handler(_ctx:any) {
+            handler(_ctx: any) {
               console.log(
                 JSON.stringify(transformToSchema(engine.getCurrentTree())),
               );
@@ -66,9 +94,9 @@ function App() {
     [],
   );
 
-  const handleSave = () => {
-    console.log(JSON.stringify(transformToSchema(engine.getCurrentTree())));
-  };
+  // const handleSave = () => {
+  //   console.log(JSON.stringify(transformToSchema(engine.getCurrentTree())));
+  // };
 
   useEffect(() => {
     GlobalRegistry.setDesignerLanguage('zh-cn');
@@ -87,24 +115,76 @@ function App() {
     FormGrid,
     Space,
     Slider,
-    MyCustom
+    Text,
+    Select,
+    TreeSelect,
+    Cascader,
+    Transfer,
+    Checkbox,
+    Radio,
+    DatePicker,
+    TimePicker,
+    Upload,
+    Switch,
+    ObjectContainer,
+    FormTab,
+    FormCollapse,
+    FormLayout,
+    MyCustom,
   };
 
   return (
     <Designer engine={engine}>
-      <StudioPanel actions={[<Button onClick={handleSave}>保存</Button>]}>
+      <StudioPanel
+       logo={<LogoWidget />} actions={<ActionsWidget />}
+        // actions={[
+        //   <Button key="save-button" onClick={handleSave}>
+        //     保存
+        //   </Button>,
+        // ]}
+      >
         <CompositePanel>
           <CompositePanel.Item title="panels.Component" icon="Component">
             <ResourceWidget
-              title="sources.Inputs"
-              sources={[Input, Password, NumberPicker, Rate, Slider, MyCustom]}
+              title="输入控件"
+              sources={[
+                Input,
+                Password,
+                NumberPicker,
+                Rate,
+                Slider,
+                Select,
+                TreeSelect,
+                Cascader,
+                Transfer,
+                Checkbox,
+                Radio,
+                DatePicker,
+                DatePicker.RangePicker,
+                TimePicker,
+                TimePicker.RangePicker,
+                Upload,
+                Switch,
+                ObjectContainer,
+                MyCustom,
+              ]}
             />
-            <ResourceWidget title="sources.Layouts" sources={[Card,FormGrid,Space]} />
             <ResourceWidget
-              title="sources.Arrays"
+              title="布局组件"
+              sources={[
+                Card,
+                FormGrid,
+                FormTab,
+                FormLayout,
+                FormCollapse,
+                Space,
+              ]}
+            />
+            <ResourceWidget
+              title="自增组件"
               sources={[ArrayCards, ArrayTable]}
             />
-            {/*<ResourceWidget title="sources.Displays" sources={[Text]} />*/}
+            <ResourceWidget title="展示组件" sources={[Text]} />
           </CompositePanel.Item>
           <CompositePanel.Item title="panels.OutlinedTree" icon="Outline">
             <OutlineTreeWidget />
@@ -123,17 +203,23 @@ function App() {
             </ToolbarPanel>
             <ViewportPanel style={{ height: '100%' }}>
               <ViewPanel type="DESIGNABLE">
-                {() => (
-                  <ComponentTreeWidget
-                    components={components}
-                  />
+                {() => <ComponentTreeWidget components={components} />}
+              </ViewPanel>
+              <ViewPanel type="JSONTREE"  scrollable={false}>
+                {(tree, onChange) => (
+                  // <div
+                  //   dangerouslySetInnerHTML={{
+                  //     __html: JSON.stringify(transformToSchema(tree)),
+                  //   }}
+                  // ></div>
+                  <SchemaEditorWidget tree={tree} onChange={onChange} />
                 )}
               </ViewPanel>
-              <ViewPanel type="JSONTREE">
-                {(tree) => <div dangerouslySetInnerHTML={{__html:JSON.stringify(transformToSchema(tree))}}></div>}
+              <ViewPanel type="MARKUP" scrollable={false}>
+                {(tree) => <MarkupSchemaWidget tree={tree} />}
               </ViewPanel>
               <ViewPanel type={`PREVIEW`}>
-                {(tree) => <PreviewWidget tree={tree}  />}
+                {(tree) => <PreviewWidget tree={tree} />}
               </ViewPanel>
             </ViewportPanel>
           </WorkspacePanel>

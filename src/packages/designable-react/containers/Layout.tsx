@@ -5,6 +5,7 @@ import { IDesignerLayoutProps } from '../types';
 import cls from 'classnames';
 
 export const Layout: React.FC<IDesignerLayoutProps> = (props) => {
+  const { theme = 'light', prefixCls = 'dn-', position = 'fixed' } = props;
   const layout = useContext(DesignerLayoutContext);
   const ref = useRef<HTMLDivElement>();
 
@@ -23,25 +24,19 @@ export const Layout: React.FC<IDesignerLayoutProps> = (props) => {
     <div
       ref={ref}
       className={cls({
-        [`${props.prefixCls}app`]: true,
-        [`${props.prefixCls}${props.theme}`]: props.theme,
+        [`${prefixCls}app`]: true,
+        [`${prefixCls}${theme}`]: theme,
       })}
     >
       <DesignerLayoutContext.Provider
         value={{
-          theme: props.theme,
-          prefixCls: props.prefixCls,
-          position: props.position,
+          theme: theme,
+          prefixCls: prefixCls,
+          position: position,
         }}
       >
         {props.children}
       </DesignerLayoutContext.Provider>
     </div>
   );
-};
-
-Layout.defaultProps = {
-  theme: 'light',
-  prefixCls: 'dn-',
-  position: 'fixed',
 };

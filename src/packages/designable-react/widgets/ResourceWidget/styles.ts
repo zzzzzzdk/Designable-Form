@@ -13,9 +13,9 @@ export const genResourceWidgetStyle = (
         display: 'flex',
         alignItems: 'center',
         padding: '5px 8px',
-        color: '#333',
-        borderBottom: `1px solid #d9d9d9`,
-        backgroundColor: `#eee`,
+        color: 'var(--dn-collapse-header-color)',
+        borderBottom: `1px solid var(--dn-panel-border-color)`,
+        backgroundColor: `var(--dn-panel-active-bg-color)`,
         cursor: 'pointer',
         transition: 'all 0.25s ease-in-out',
         fontSize: '13px',
@@ -29,7 +29,7 @@ export const genResourceWidgetStyle = (
       [`&-content-wrapper`]: {
         display: 'flex',
         justifyContent: 'center',
-        background: '#fff',
+        background: 'var(--dn-resource-content-bg-color)',
       },
       [`&-content`]: {
         width: '100%',
@@ -40,10 +40,10 @@ export const genResourceWidgetStyle = (
       [`&.expand`]: {
         [`.dn-resource-content`]: {
           display: 'grid',
-          gridTemplateColumns: 'repeat(2, 50%)',
+          gridTemplateColumns: ' repeat(3, 33.3333%)',
           gridGap: '1px',
-          backgroundColor: '#d9d9d9',
-          borderBottom: `1px solid #d9d9d9`,
+          backgroundColor: 'var(--dn-panel-border-color)',
+          borderBottom: `1px solid var(--dn-panel-border-color)`,
         },
         [`.dn-resource-header-expand`]: {
           transform: 'rotate(0)',
@@ -52,32 +52,31 @@ export const genResourceWidgetStyle = (
       [`&-item`]: {
         position: 'relative',
         userSelect: 'none',
-        background: '#fff',
+         background: 'var(--dn-resource-content-bg-color)',
         minHeight: '40px',
-        color: '#333',
+        color: 'var(--dn-resource-item-color)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'row',
+        flexDirection: 'column',
         cursor: 'grab',
         transition: 'color 0.1s ease-out',
         [`&:hover`]: {
-          color: `rgba(24, 144, 255, 1)`,
+          color: 'var(--dn-resource-item-hover-color)',
           boxShadow: ' 0 0 10px rgba(0, 0, 0, 0.1)',
           zIndex: 1,
         },
         [`&-icon`]: {
-          margin: '12px 8px',
+          margin: '12px 0',
         },
         [`&-text`]: {
-          flex: '1 auto',
-          // textAlign: 'center',
+          textAlign: 'center',
           fontSize: '12px',
           lineHeight: 1,
-          // marginBottom: '12px'
+          marginBottom: '12px'
         },
         [`&-remain`]: {
-          background: '#fff',
+          background: 'var(--dn-resource-content-bg-color)',
         },
       },
     },

@@ -16,7 +16,7 @@ const mapEnum = (dataSource: any[]) => (item: any, index: number) => {
   const icon = takeIcon(label);
   return {
     ...item,
-    value: item?.value ?? null,
+    value: item?.value ?? undefined,
     label: icon ? (
       <IconWidget infer={icon[0]} tooltip={icon[1]} />
     ) : (
@@ -54,9 +54,9 @@ export const effectLocales = (node: TreeNode) => {
     if (!isVoidField(field)) {
       if (dataSource?.length) {
         if (field.dataSource?.length) {
-          field.dataSource = field.dataSource.map(mapEnum(dataSource));
+          field.dataSource = field.dataSource.map(mapEnum(dataSource)).filter(item => item.value !== null);
         } else {
-          field.dataSource = dataSource.slice();
+          field.dataSource = dataSource.slice().filter(item => item.value !== null);
         }
       } else {
         field.dataSource = field.dataSource?.filter(Boolean);

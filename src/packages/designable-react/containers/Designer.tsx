@@ -43,8 +43,3 @@ export const Designer: React.FC<IDesignerProps> = (props) => {
     </Layout>
   );
 };
-
-Designer.defaultProps = {
-  prefixCls: 'dn-',
-  theme: 'light',
-};

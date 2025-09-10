@@ -37,20 +37,20 @@ const InputItemsContext = React.createContext<IInputItemsContext>(null);
 export const InputItems: React.FC<IInputItemsProps> & {
   Item: React.FC<IInputItemProps>;
 } = (props) => {
+  const { className, style } = props;
+  
   const prefix = usePrefix('input-items');
   const { hashId } = useCssInJs({ prefix, styleFun: genInputItemsStyle });
   return (
     <InputItemsContext.Provider value={props}>
-      <div className={cls(prefix, props.className, hashId)} style={props.style}>
+      <div className={cls(prefix, className, hashId)} style={style}>
         {props.children}
       </div>
     </InputItemsContext.Provider>
   );
 };
 
-InputItems.defaultProps = {
-  width: '100%',
-};
+
 
 InputItems.Item = (props) => {
   const prefix = usePrefix('input-items-item');

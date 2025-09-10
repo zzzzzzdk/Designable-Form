@@ -8,7 +8,7 @@ export const genTextStyle = (
   return {
     [`.${prefixCls}`]: {
       [`&:empty::before`]: {
-        content: 'Please Input',
+        content: '"Please Input"',
         display: 'block',
         opacity: 0.6,
       },

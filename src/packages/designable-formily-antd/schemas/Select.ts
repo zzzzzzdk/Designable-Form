@@ -5,11 +5,11 @@ export const Select: ISchema = {
   properties: {
     mode: {
       type: 'string',
-      enum: ['multiple', 'tags', null],
+      enum: ['multiple', 'tags', 'combobox'],
       'x-decorator': 'FormItem',
       'x-component': 'Radio.Group',
       'x-component-props': {
-        defaultValue: null,
+        defaultValue: undefined,
         optionType: 'button',
       },
     },
@@ -138,7 +138,7 @@ export const Select: ISchema = {
 
     size: {
       type: 'string',
-      enum: ['large', 'small', 'middle', null],
+      enum: ['large', 'small', 'middle', undefined],
       'x-decorator': 'FormItem',
       'x-component': 'Select',
       'x-component-props': {
