@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
-import { Space, Button, Radio, Switch } from 'antd'
+import { Space, Button, Radio, Select } from 'antd'
 // import { GithubOutlined } from '@ant-design/icons'
 import { useDesigner, TextWidget } from '@/packages/designable-react'
 import { GlobalRegistry } from '@/packages/designable-core'
 import { observer } from '@formily/react'
 import { loadInitialSchema, saveSchema } from '../service'
-import { useTheme } from '../theme/ThemeContext.tsx'
+import { useTheme, themeOptions } from '../theme/ThemeContext.tsx'
 
 export const ActionsWidget = observer(() => {
   const designer = useDesigner()
-  const { theme, toggleTheme } = useTheme()
+  const { theme, setTheme } = useTheme()
   
   useEffect(() => {
     loadInitialSchema(designer)
@@ -38,16 +38,12 @@ export const ActionsWidget = observer(() => {
         }}
       />
       
-      <Space>
-        <span>浅色</span>
-        <Switch 
-          checked={theme === 'dark'} 
-          onChange={toggleTheme} 
-          checkedChildren=".dark" 
-          unCheckedChildren="light" 
-        />
-        <span>深色</span>
-      </Space>
+      <Select
+        value={theme}
+        options={themeOptions}
+        onChange={setTheme}
+        style={{ width: 120 }}
+      />
       
       {/* <Button href="https://github.com/alibaba/designable" target="_blank">
         <GithubOutlined />
