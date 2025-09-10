@@ -1,22 +1,27 @@
 import React, { useEffect } from 'react'
-import { Space, Button, Radio } from 'antd'
+import { Space, Button, Radio, Switch } from 'antd'
 // import { GithubOutlined } from '@ant-design/icons'
 import { useDesigner, TextWidget } from '@/packages/designable-react'
 import { GlobalRegistry } from '@/packages/designable-core'
 import { observer } from '@formily/react'
 import { loadInitialSchema, saveSchema } from '../service'
+import { useTheme } from '../theme/ThemeContext.tsx'
 
 export const ActionsWidget = observer(() => {
   const designer = useDesigner()
+  const { theme, toggleTheme } = useTheme()
+  
   useEffect(() => {
     loadInitialSchema(designer)
   }, [])
+  
   const supportLocales = ['zh-cn', 'en-us', 'ko-kr']
   useEffect(() => {
     if (!supportLocales.includes(GlobalRegistry.getDesignerLanguage())) {
       GlobalRegistry.setDesignerLanguage('zh-cn')
     }
   }, [])
+  
   return (
     <Space style={{ marginRight: 10 }}>
       {/* <Button href="https://designable-antd.formilyjs.org">Ant Design</Button> */}
@@ -32,6 +37,18 @@ export const ActionsWidget = observer(() => {
           GlobalRegistry.setDesignerLanguage(e.target.value)
         }}
       />
+      
+      <Space>
+        <span>浅色</span>
+        <Switch 
+          checked={theme === 'dark'} 
+          onChange={toggleTheme} 
+          checkedChildren=".dark" 
+          unCheckedChildren="light" 
+        />
+        <span>深色</span>
+      </Space>
+      
       {/* <Button href="https://github.com/alibaba/designable" target="_blank">
         <GithubOutlined />
         Github
