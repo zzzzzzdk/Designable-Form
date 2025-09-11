@@ -3,6 +3,7 @@ export const Cascader = {
     title: '联级选择',
     settings: {
       'x-component-props': {
+        variant: '变体',
         changeOnSelect: {
           title: '选择时触发',
           tooltip: '点选每级菜单选项值都会发生变化',
@@ -23,6 +24,7 @@ export const Cascader = {
     title: 'Cascader',
     settings: {
       'x-component-props': {
+        variant: 'Variant',
         changeOnSelect: {
           title: 'Change On Select',
           tooltip: 'Click on each level of menu option value will change',
@@ -44,6 +46,7 @@ export const Cascader = {
     title: 'Cascader',
     settings: {
       'x-component-props': {
+        variant: 'Variant',
         changeOnSelect: {
           title: '선택 시 변경',
           tooltip: '메뉴 옵션 값의 레벨을 클릭하면 변경됩니다.',

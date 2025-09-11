@@ -25,7 +25,7 @@ export const ViewPanel: React.FC<IViewPanelProps> = observer((props) => {
   const workbench = useWorkbench();
   const tree = useTree();
   useEffect(() => {
-    if (workbench.type === props.type) {
+    if (workbench.type === props.type) { 
       requestIdle(() => {
         requestAnimationFrame(() => {
           setVisible(true);
@@ -38,7 +38,7 @@ export const ViewPanel: React.FC<IViewPanelProps> = observer((props) => {
   if (workbench.type !== props.type) return null;
   const render = () => {
     return props.children(tree, (payload) => {
-      debugger;
+      // debugger;
       tree.from(payload);
       tree.takeSnapshot();
     });

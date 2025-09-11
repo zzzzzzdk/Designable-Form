@@ -52,6 +52,7 @@ export const FieldPropertySetter: React.FC<IFieldPropertySetterProps> = (
 
   return (
     <div className={cls(prefix, hashId)}>
+      1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
       <Menu
         mode="vertical"
         style={{
@@ -66,26 +67,27 @@ export const FieldPropertySetter: React.FC<IFieldPropertySetterProps> = (
         onSelect={({ selectedKeys }) => {
           setSelectKeys(selectedKeys);
         }}
-      >
-        {FieldProperties.map((key) => {
+        items={FieldProperties.map((key) => {
           if (isPlainObj(key)) {
-            return (
-              <Menu.Item key={key.key}>
+            return {
+              key: key.key,
+              label: (
                 <TextWidget
                   token={`SettingComponents.ReactionsSetter.${
                     key.token || key.key
                   }`}
                 />
-              </Menu.Item>
-            );
+              ),
+            };
           }
-          return (
-            <Menu.Item key={key}>
+          return {
+            key: key,
+            label: (
               <TextWidget token={`SettingComponents.ReactionsSetter.${key}`} />
-            </Menu.Item>
-          );
+            ),
+          };
         })}
-      </Menu>
+      />
       <div className={cls(prefix + '-coder-wrapper', hashId)}>
         <div className={prefix + '-coder-start'}>
           {`$self.${selectKeys[0]} = (`}

@@ -21,12 +21,13 @@ export const TreeSelect: ISchema = {
       'x-decorator': 'FormItem',
       'x-component': 'Switch',
     },
-    bordered: {
-      type: 'boolean',
+    variant: {
+      type: 'string',
+      enum: ['outlined', 'borderless', 'filled'],
       'x-decorator': 'FormItem',
-      'x-component': 'Switch',
+      'x-component': 'Select',
       'x-component-props': {
-        defaultChecked: true,
+        defaultValue: 'outlined',
       },
     },
     labelInValue: {
@@ -34,10 +35,13 @@ export const TreeSelect: ISchema = {
       'x-decorator': 'FormItem',
       'x-component': 'Switch',
     },
-    showArrow: {
-      type: 'boolean',
+    suffixIcon: {
+      type: 'string',
       'x-decorator': 'FormItem',
-      'x-component': 'Switch',
+      'x-component': 'Input',
+      'x-component-props': {
+        placeholder: '自定义后缀图标，设置为 null 隐藏箭头',
+      },
     },
     showSearch: {
       type: 'boolean',

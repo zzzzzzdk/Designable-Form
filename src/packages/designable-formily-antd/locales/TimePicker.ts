@@ -6,6 +6,7 @@ export const TimePicker = createLocales(DatePicker, {
     title: '时间选择',
     settings: {
       'x-component-props': {
+        variant: '变体',
         clearText: '清除提示',
         disabledHours: '禁止小时',
         disabledMinutes: '禁止分钟',
@@ -25,6 +26,7 @@ export const TimePicker = createLocales(DatePicker, {
     title: 'Time Picker',
     settings: {
       'x-component-props': {
+        variant: 'Variant',
         clearText: 'Clear Text',
         disabledHours: 'Disbaled Hours',
         disabledMinutes: 'Disabled Minutes',
@@ -44,6 +46,7 @@ export const TimePicker = createLocales(DatePicker, {
     title: '시간 선택',
     settings: {
       'x-component-props': {
+        variant: 'Variant',
         clearText: '텍스트 삭제',
         disabledHours: '시 비활성화',
         disabledMinutes: '분 비활성화',

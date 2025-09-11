@@ -11,10 +11,12 @@ export const Slider = {
           title: '提示位置',
           tooltip: '设置 提示 展示位置。参考 Tooltip',
         },
-        tooltipVisible: {
-          title: '提示显示',
-          tooltip:
-            '开启时，提示 将会始终显示；否则始终不显示，哪怕在拖拽及移入时',
+        tooltip: {
+          open: {
+            title: '提示显示',
+            tooltip:
+              '开启时，提示 将会始终显示；否则始终不显示，哪怕在拖拽及移入时',
+          },
         },
         max: '最大值',
         min: '最小值',
@@ -35,10 +37,12 @@ export const Slider = {
           title: 'Tooltip Placement',
           tooltip: 'Set up prompt placement. Reference Tooltip',
         },
-        tooltipVisible: {
-          title: 'Tooltip Visible',
-          tooltip:
-            'When turned on, the prompt will always be displayed; otherwise, it will always not be displayed, even when dragging and moving in',
+        tooltip: {
+          open: {
+            title: 'Tooltip Visible',
+            tooltip:
+              'When turned on, the prompt will always be displayed; otherwise, it will always not be displayed, even when dragging and moving in',
+          },
         },
         max: 'Max',
         min: 'Min',
@@ -59,10 +63,12 @@ export const Slider = {
           title: '툴팁 배치',
           tooltip: '툴팁이 나오는 위치를 설정',
         },
-        tooltipVisible: {
-          title: '툴팁 보기',
-          tooltip:
-            '이 옵션을 켜면 툴팁이 항상 표시됩니다. 그렇지 않으면 끌어서 이동할 때도 툴팁이 항상 표시되지 않습니다',
+        tooltip: {
+          open: {
+            title: '툴팁 보기',
+            tooltip:
+              '이 옵션을 켜면 툴팁이 항상 표시됩니다. 그렇지 않으면 끌어서 이동할 때도 툴팁이 항상 표시되지 않습니다',
+          },
         },
         max: '최댓값',
         min: '최솟값',

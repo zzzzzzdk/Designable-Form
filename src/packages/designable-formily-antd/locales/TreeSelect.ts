@@ -30,13 +30,14 @@ export const TreeSelect = {
           tooltip: '隐藏 tag 时显示的内容',
         },
         maxTagTextLength: '最多标签文本长度',
-        showArrow: '显示箭头',
+        suffixIcon: '自定义后缀图标',
         virtual: '开启虚拟滚动',
         dropdownMatchSelectWidth: {
           title: '下拉选择器同宽',
           tooltip:
             '默认将设置 min-width，当值小于选择框宽度时会被忽略。false 时会关闭虚拟滚动',
         },
+        variant: '变体',
         showCheckedStrategy: {
           title: '复选回显策略',
           tooltip:
@@ -87,13 +88,14 @@ export const TreeSelect = {
         },
         maxTagTextLength: 'Max Tag Text Length',
         notFoundContent: 'Not Found Content',
-        showArrow: 'Show Arrow',
+        suffixIcon: 'Custom Suffix Icon',
         virtual: 'Use Virtual Scroll',
         dropdownMatchSelectWidth: {
           title: 'Dropdown Match Select Width',
           tooltip:
             'By default, min-width will be set, and it will be ignored when the value is less than the width of the selection box. false will turn off virtual scrolling',
         },
+        variant: 'Variant',
         showCheckedStrategy: {
           title: 'Show Checked Strategy',
           tooltip:
@@ -148,13 +150,14 @@ export const TreeSelect = {
         },
         maxTagTextLength: '최대 태그 문자 길이',
         notFoundContent: '내용 없음',
-        showArrow: '화살표 보기',
+        suffixIcon: '사용자 정의 접미사 아이콘',
         virtual: '수직 스크롤 사용',
         dropdownMatchSelectWidth: {
           title: '드롭다운 너비 맞추기',
           tooltip:
             '기본적으로 최소 너비가 설정되며 값이 선택 상자의 너비보다 작으면 무시됩니다.',
         },
+        variant: 'Variant',
         showCheckedStrategy: {
           title: '선택한 전략 표시',
           tooltip:

@@ -22,6 +22,7 @@ export const NumberPicker = {
           title: '字符串格式',
           tooltip: '开启后支持高精度小数。同时 onChange 将返回 string 类型',
         },
+        variant: '变体',
       },
     },
   },
@@ -49,6 +50,7 @@ export const NumberPicker = {
           tooltip:
             'Support high-precision decimals after opening. At the same time onChange will return string type',
         },
+        variant: 'Variant',
       },
     },
   },
@@ -76,6 +78,7 @@ export const NumberPicker = {
           tooltip:
             '높은 정밀도 소수를 지원합니다. onChange에서 문자열 타입으로 반환됩니다.',
         },
+        variant: 'Variant',
       },
     },
   },

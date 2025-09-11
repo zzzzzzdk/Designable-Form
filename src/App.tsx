@@ -60,14 +60,16 @@ import {
   setNpmCDNRegistry
 } from '@/packages/designable-react-settings-form';
 import { transformToSchema } from '@/packages/designable-formily-transformer';
-import { Button } from 'antd';
 // import { FormLayout } from '@formily/antd-v5';
 import {
   PreviewWidget,
   MarkupSchemaWidget,
   ActionsWidget,
   SchemaEditorWidget,
-  LogoWidget
+  LogoWidget,
+  ErrorBoundary,
+  // createEnhancedComponent,
+  // ComponentValidationRules
 } from '@/widgets'
 
 setNpmCDNRegistry();
@@ -103,7 +105,13 @@ function App() {
     GlobalRegistry.setDesignerLanguage('zh-cn');
   }, []);
 
-  const components: IDesignerComponents = {
+//   // 创建增强版组件
+// const EnhancedInput = createEnhancedComponent('Input', Input, ComponentValidationRules.Input);
+// const EnhancedSelect = createEnhancedComponent('Select', Select, ComponentValidationRules.Select);
+// const EnhancedSwitch = createEnhancedComponent('Switch', Switch, ComponentValidationRules.Switch);
+// const EnhancedRate = createEnhancedComponent('Rate', Rate, ComponentValidationRules.Rate);
+
+const components: IDesignerComponents = {
     Form,
     Field,
     Input,
@@ -205,7 +213,11 @@ function App() {
               </ToolbarPanel>
               <ViewportPanel style={{ height: '100%' }}>
                 <ViewPanel type="DESIGNABLE">
-                  {() => <ComponentTreeWidget components={components} />}
+                  {() => (
+                    <ErrorBoundary>
+                      <ComponentTreeWidget components={components} />
+                    </ErrorBoundary>
+                  )}
                 </ViewPanel>
                 <ViewPanel type="JSONTREE"  scrollable={false}>
                   {(tree, onChange) => (
@@ -214,20 +226,32 @@ function App() {
                     //     __html: JSON.stringify(transformToSchema(tree)),
                     //   }}
                     // ></div>
-                    <SchemaEditorWidget tree={tree} onChange={onChange} />
+                    <ErrorBoundary>
+                      <SchemaEditorWidget tree={tree} onChange={onChange} />
+                    </ErrorBoundary>
                   )}
                 </ViewPanel>
                 <ViewPanel type="MARKUP" scrollable={false}>
-                  {(tree) => <MarkupSchemaWidget tree={tree} />}
+                  {(tree) => (
+                    <ErrorBoundary>
+                      <MarkupSchemaWidget tree={tree} />
+                    </ErrorBoundary>
+                  )}
                 </ViewPanel>
                 <ViewPanel type={`PREVIEW`}>
-                  {(tree) => <PreviewWidget tree={tree} />}
+                  {(tree) => (
+                    <ErrorBoundary>
+                      <PreviewWidget tree={tree} />
+                    </ErrorBoundary>
+                  )}
                 </ViewPanel>
               </ViewportPanel>
             </WorkspacePanel>
           </Workspace>
           <SettingsPanel title="panels.PropertySettings">
-            <SettingsForm uploadAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" />
+            <ErrorBoundary>
+              <SettingsForm uploadAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" />
+            </ErrorBoundary>
           </SettingsPanel>
         </StudioPanel>
       </Designer>

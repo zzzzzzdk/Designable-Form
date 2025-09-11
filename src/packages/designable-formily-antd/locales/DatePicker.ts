@@ -5,6 +5,7 @@ export const DatePicker = {
     title: '日期选择',
     settings: {
       'x-component-props': {
+        variant: '变体',
         disabledDate: {
           title: '不可选日期',
           tooltip: '格式 (currentDate: moment) => boolean',
@@ -29,6 +30,7 @@ export const DatePicker = {
     title: 'DatePicker',
     settings: {
       'x-component-props': {
+        variant: 'Variant',
         disabledDate: {
           title: 'Disabled Date',
           tooltip: 'Format (currentDate: moment) => boolean',
@@ -53,6 +55,7 @@ export const DatePicker = {
     title: '날짜 선택 상자',
     settings: {
       'x-component-props': {
+        variant: 'Variant',
         disabledDate: {
           title: '비활성화 된 날짜',
           tooltip: '형식 (currentDate: moment) => boolean',
