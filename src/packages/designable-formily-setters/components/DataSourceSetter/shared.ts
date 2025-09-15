@@ -20,6 +20,11 @@ export const traverseTree = <T extends INode>(
 };
 
 export const transformValueToData = (value: IDataSourceItem[]): INodeItem[] => {
+  // 如果包含动态数据标记，返回空数组
+  if (Array.isArray(value) && value[0] && (value as any)[0]?.__dynamic__) {
+    return [];
+  }
+
   const data = clone(value);
   traverseTree(data, (item, i, dataSource) => {
     const dataItem = {
@@ -29,8 +34,15 @@ export const transformValueToData = (value: IDataSourceItem[]): INodeItem[] => {
       children: [],
     };
     for (const [key, value] of Object.entries(dataSource[i] || {})) {
-      if (key !== 'children') dataItem.map.push({ label: key, value: value });
+      if (key !== 'children') {
+        // 确保value属性有默认值
+        dataItem.map.push({ 
+          label: key, 
+          value: value !== undefined ? value : '' 
+        });
+      }
     }
+    
     const uuid = uid();
     dataItem.key = uuid;
     dataItem.duplicateKey = uuid;
@@ -47,8 +59,12 @@ export const transformDataToValue = (data: INodeItem[]): IDataSourceItem[] => {
       children: [],
     };
     toArr(dataSource[i].map).forEach((item) => {
-      if (item.label) valueItem[item.label] = item.value;
+      if (item.label) {
+        // 确保value属性有默认值
+        valueItem[item.label] = item.value !== undefined ? item.value : '';
+      }
     });
+    
     valueItem.children = dataSource[i]?.children || [];
     dataSource[i] = valueItem;
   });

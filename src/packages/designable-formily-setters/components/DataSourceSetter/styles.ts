@@ -53,6 +53,18 @@ export const genDataSourceSetterStyle = (
           },
           [`&.right`]: {
             width: '60%',
+            margin: '0 auto',
+            ['label']: {
+              display: 'flex',
+              gap: '10px',
+              ['&>span']: {
+                width: '75px',
+                lineHeight: '32px',
+                flex: 'none',
+                textAlign: 'right'
+                // textAlign: 'right',
+              },
+            },
           },
           [`&-header`]: {
             display: 'flex',

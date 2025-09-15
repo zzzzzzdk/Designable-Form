@@ -3,14 +3,13 @@ import {
   transformToSchema,
   transformToTreeNode,
 } from '@/packages/designable-formily-transformer'
-import { message } from 'antd'
 
-export const saveSchema = (designer: Engine) => {
+export const saveSchema = (designer: Engine, messageApi: any) => {
   localStorage.setItem(
     'formily-schema',
     JSON.stringify(transformToSchema(designer.getCurrentTree()))
   )
-  message.success('Save Success')
+  messageApi.success('Save Success')
 }
 
 export const loadInitialSchema = (designer: Engine) => {

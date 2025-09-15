@@ -56,6 +56,12 @@ export const Input: ISchema & { TextArea?: ISchema } = {
         defaultValue: 'middle',
       },
     },
+    // 添加新的autoFocus属性
+    // autoFocus: {
+    //   type: 'boolean',
+    //   'x-decorator': 'FormItem',
+    //   'x-component': 'Switch',
+    // },
   },
 };
 
@@ -87,6 +93,12 @@ Input.TextArea = {
       'x-component': 'Switch',
     },
     showCount: {
+      'x-decorator': 'FormItem',
+      'x-component': 'Switch',
+    },
+    // 为TextArea也添加autoFocus属性
+    autoFocus: {
+      type: 'boolean',
       'x-decorator': 'FormItem',
       'x-component': 'Switch',
     },

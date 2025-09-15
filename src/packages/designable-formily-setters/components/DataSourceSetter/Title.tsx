@@ -19,10 +19,12 @@ export const Title: React.FC<ITitleProps> = observer((props) => {
   const prefix = usePrefix('data-source-setter-node-title');
   const { hashId } = useToken();
   const getTitleValue = (dataSource) => {
+    console.log('getTitleValue dataSource:', dataSource);
     const optionalKeys = ['label', 'title', 'header'];
     let nodeTitle: string;
     optionalKeys.some((key) => {
       const title = toArr(dataSource).find((item) => item.label === key)?.value;
+      console.log(`Looking for key "${key}", found:`, title);
       if (title !== undefined) {
         nodeTitle = title;
         return true;
@@ -38,6 +40,7 @@ export const Title: React.FC<ITitleProps> = observer((props) => {
         return false;
       });
     }
+    console.log('Final nodeTitle:', nodeTitle);
     return nodeTitle;
   };
 

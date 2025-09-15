@@ -14,7 +14,7 @@ Radio.Behavior = createBehavior({
   extends: ['Field'],
   selector: (node) => node.props['x-component'] === 'Radio.Group',
   designerProps: {
-    propsSchema: createFieldSchema(AllSchemas.Radio.Group),
+    propsSchema: createFieldSchema(AllSchemas.Radio.Group, AllSchemas.FormItem, { includeDefault: false, includeEnum: true }),
   },
   designerLocales: AllLocales.RadioGroup,
 });

@@ -14,7 +14,7 @@ Cascader.Behavior = createBehavior({
   extends: ['Field'],
   selector: (node) => node.props['x-component'] === 'Cascader',
   designerProps: {
-    propsSchema: createFieldSchema(AllSchemas.Cascader),
+    propsSchema: createFieldSchema(AllSchemas.Cascader, AllSchemas.FormItem, { includeEnum: true }),
   },
   designerLocales: AllLocales.Cascader,
 });

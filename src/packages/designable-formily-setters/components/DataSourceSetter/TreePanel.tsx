@@ -97,23 +97,38 @@ export const TreePanel: React.FC<ITreePanelProps> = observer((props) => {
             onClick={() => {
               const uuid = uid();
               const dataSource = props.treeDataSource.dataSource;
-              const initialKeyValuePairs = props.defaultOptionValue?.map(
-                (item) => ({ ...item }),
-              ) || [
-                {
-                  label: 'label',
-                  value: `${GlobalRegistry.getDesignerMessage(
-                    `SettingComponents.DataSourceSetter.item`,
-                  )} ${dataSource.length + 1}`,
-                },
-                { label: 'value', value: uuid },
-              ];
-              props.treeDataSource.dataSource = dataSource.concat({
+              // 处理初始键值对，确保每个项都有value属性
+              const validatedInitialKeyValuePairs = (props.defaultOptionValue && props.defaultOptionValue.length > 0) 
+                ? props.defaultOptionValue.map((item) => ({
+                    label: item.label,
+                    value: item.value !== undefined ? item.value : ''
+                  }))
+                : [
+                    {
+                      label: 'label',
+                      value: `${GlobalRegistry.getDesignerMessage(
+                        `SettingComponents.DataSourceSetter.item`,
+                      )} ${dataSource.length + 1}`,
+                    },
+                    { label: 'value', value: uuid },
+                  ];
+              
+              // 确保所有键值对都有value属性
+              const initialKeyValuePairs = validatedInitialKeyValuePairs.map(pair => ({
+                label: pair.label,
+                value: pair.value !== undefined ? pair.value : ''
+              }));
+              
+              const newNode = {
                 key: uuid,
                 duplicateKey: uuid,
                 map: initialKeyValuePairs,
                 children: [],
-              });
+              };
+              console.log('Adding new node:', newNode);
+              console.log('initialKeyValuePairs:', initialKeyValuePairs);
+              props.treeDataSource.dataSource = dataSource.concat(newNode);
+              console.log('Updated dataSource:', props.treeDataSource.dataSource);
             }}
             icon={<IconWidget infer="Add" />}
           >

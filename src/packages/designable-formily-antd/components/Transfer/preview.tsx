@@ -14,7 +14,7 @@ Transfer.Behavior = createBehavior({
   extends: ['Field'],
   selector: (node) => node.props['x-component'] === 'Transfer',
   designerProps: {
-    propsSchema: createFieldSchema(AllSchemas.Transfer),
+    propsSchema: createFieldSchema(AllSchemas.Transfer, AllSchemas.FormItem, { includeDefault: false, includeEnum: true }),
   },
   designerLocales: AllLocales.Transfer,
 });

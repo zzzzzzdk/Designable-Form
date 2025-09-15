@@ -15,6 +15,8 @@ export const Input = {
         showCount: '是否展示字数',
         checkStrength: '检测强度',
         variant: '变体',
+        // 添加autoFocus的中文显示名称
+        autoFocus: '自动聚焦',
       },
     },
   },
@@ -31,6 +33,8 @@ export const Input = {
         showCount: 'Show Count',
         checkStrength: 'Check Strength',
         variant: 'Variant',
+        // 添加autoFocus的英文显示名称
+        autoFocus: 'Auto Focus',
       },
     },
   },
@@ -47,6 +51,8 @@ export const Input = {
         showCount: '개수 보여주기',
         checkStrength: '강도 체크',
         variant: 'Variant',
+        // 添加autoFocus的韩文显示名称
+        autoFocus: '자동 포커스',
       },
     },
   },

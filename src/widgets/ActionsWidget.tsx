@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Space, Button, Radio, Select } from 'antd'
+import { Space, Button, Radio, Select, App } from 'antd'
 // import { GithubOutlined } from '@ant-design/icons'
 import { useDesigner, TextWidget } from '@/packages/designable-react'
 import { GlobalRegistry } from '@/packages/designable-core'
@@ -8,6 +8,7 @@ import { loadInitialSchema, saveSchema } from '../service'
 import { useTheme, themeOptions } from '../theme/ThemeContext.tsx'
 
 export const ActionsWidget = observer(() => {
+  const { message: messageApi } = App.useApp();
   const designer = useDesigner()
   const { theme, setTheme } = useTheme()
   
@@ -51,7 +52,7 @@ export const ActionsWidget = observer(() => {
       </Button> */}
       <Button
         onClick={() => {
-          saveSchema(designer)
+          saveSchema(designer, messageApi)
         }}
       >
         <TextWidget>Save</TextWidget>
@@ -59,7 +60,7 @@ export const ActionsWidget = observer(() => {
       <Button
         type="primary"
         onClick={() => {
-          saveSchema(designer)
+          saveSchema(designer, messageApi)
         }}
       >
         <TextWidget>Publish</TextWidget>
