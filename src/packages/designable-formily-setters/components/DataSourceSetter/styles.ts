@@ -61,8 +61,11 @@ export const genDataSourceSetterStyle = (
                 width: '75px',
                 lineHeight: '32px',
                 flex: 'none',
-                textAlign: 'right'
+                textAlign: 'right',
                 // textAlign: 'right',
+                ['&>em']: {
+                  color: token.colorError,
+                },
               },
             },
           },
