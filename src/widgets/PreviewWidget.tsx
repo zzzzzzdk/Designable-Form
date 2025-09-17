@@ -63,8 +63,16 @@ function mapToEnum(
   childrenKey?: string,
 ) {
   if (!Array.isArray(list)) return [];
-  return list.map((item) => {
-    const mapped: any = { label: item?.[labelKey], value: item?.[valueKey] };
+  return list.map((item, index) => {
+    // 确保 value 不为 undefined，如果为 undefined 则使用索引或空字符串作为默认值
+    const itemValue = item?.[valueKey];
+    const safeValue = itemValue !== undefined && itemValue !== null ? itemValue : (index.toString());
+    
+    const mapped: any = { 
+      label: item?.[labelKey] || `选项${index + 1}`, 
+      value: safeValue 
+    };
+    
     const children = childrenKey ? item?.[childrenKey] : undefined;
     if (children && Array.isArray(children)) {
       mapped.children = mapToEnum(children, labelKey, valueKey, childrenKey);
@@ -194,7 +202,7 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
     return () => {
       aborted = true;
     };
-  }, [schema]);
+  }, [schema, messageApi]);
 
   useEffect(() => {
     console.log('runtimeSchema changed:', runtimeSchema);
@@ -234,11 +242,11 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
         Rate,
       },
     });
-  }, [runtimeSchema]);
+  }, []);
 
   return (
     <Form {...formProps} form={form}>
-      <Spin spinning={loading}>
+      <Spin spinning={loading} style={{ minHeight: '300px' }}>
         <SchemaField schema={runtimeSchema} />
       </Spin>
     </Form>

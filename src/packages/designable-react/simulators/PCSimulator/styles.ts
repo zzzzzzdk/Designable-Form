@@ -7,7 +7,7 @@ export const genPCSimulatorStyle = (
 ): CSSInterpolation => [
   {
     [`.${prefixCls}`]: {
-      backgroundColor: '#fff',
+      backgroundColor: `${token.colorBgContainer}`,
       position: 'absolute',
       top: 0,
       left: 0,

@@ -24,6 +24,9 @@ import {
   WorkspacePanel,
 } from '@/packages/designable-react';
 import { ConfigProvider } from 'antd';
+import zhCN from 'antd/locale/zh_CN';
+import enUS from 'antd/locale/en_US';
+import koKR from 'antd/locale/ko_KR';
 import { useTheme } from './theme/ThemeContext.tsx';
 import {
   ArrayCards,
@@ -57,7 +60,7 @@ import {
 } from '@/packages/designable-formily-antd';
 import {
   SettingsForm,
-  setNpmCDNRegistry
+  setNpmCDNRegistry,
 } from '@/packages/designable-react-settings-form';
 import { transformToSchema } from '@/packages/designable-formily-transformer';
 // import { FormLayout } from '@formily/antd-v5';
@@ -70,7 +73,7 @@ import {
   ErrorBoundary,
   // createEnhancedComponent,
   // ComponentValidationRules
-} from '@/widgets'
+} from '@/widgets';
 
 setNpmCDNRegistry();
 
@@ -101,17 +104,22 @@ function App() {
   //   console.log(JSON.stringify(transformToSchema(engine.getCurrentTree())));
   // };
 
-  useEffect(() => {
-    GlobalRegistry.setDesignerLanguage('zh-cn');
-  }, []);
+  const getLocal = (key: string) => {
+    const localObj = {
+      'zh-cn': zhCN,
+      'en-us': enUS,
+      'ko-kr': koKR,
+    };
+    return localObj[key as keyof typeof localObj];
+  };
 
-//   // 创建增强版组件
-// const EnhancedInput = createEnhancedComponent('Input', Input, ComponentValidationRules.Input);
-// const EnhancedSelect = createEnhancedComponent('Select', Select, ComponentValidationRules.Select);
-// const EnhancedSwitch = createEnhancedComponent('Switch', Switch, ComponentValidationRules.Switch);
-// const EnhancedRate = createEnhancedComponent('Rate', Rate, ComponentValidationRules.Rate);
+  //   // 创建增强版组件
+  // const EnhancedInput = createEnhancedComponent('Input', Input, ComponentValidationRules.Input);
+  // const EnhancedSelect = createEnhancedComponent('Select', Select, ComponentValidationRules.Select);
+  // const EnhancedSwitch = createEnhancedComponent('Switch', Switch, ComponentValidationRules.Switch);
+  // const EnhancedRate = createEnhancedComponent('Rate', Rate, ComponentValidationRules.Rate);
 
-const components: IDesignerComponents = {
+  const components: IDesignerComponents = {
     Form,
     Field,
     Input,
@@ -143,10 +151,15 @@ const components: IDesignerComponents = {
   };
 
   return (
-    <ConfigProvider theme={useTheme().themeConfig}>
-      <Designer engine={engine}>
+    <ConfigProvider
+      theme={useTheme().themeConfig}
+      locale={getLocal(GlobalRegistry.getDesignerLanguage())}
+    >
+      <Designer engine={engine} theme={useTheme().theme}>
         <StudioPanel
-        logo={<LogoWidget />} actions={<ActionsWidget />}
+          logo={<LogoWidget />}
+          actions={<ActionsWidget />}
+          theme={useTheme().theme}
           // actions={[
           //   <Button key="save-button" onClick={handleSave}>
           //     保存
@@ -219,7 +232,7 @@ const components: IDesignerComponents = {
                     </ErrorBoundary>
                   )}
                 </ViewPanel>
-                <ViewPanel type="JSONTREE"  scrollable={false}>
+                <ViewPanel type="JSONTREE" scrollable={false}>
                   {(tree, onChange) => (
                     // <div
                     //   dangerouslySetInnerHTML={{

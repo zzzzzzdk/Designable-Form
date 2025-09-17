@@ -13,7 +13,7 @@ Slider.Behavior = createBehavior({
   extends: ['Field'],
   selector: (node) => node.props['x-component'] === 'Slider',
   designerProps: {
-    propsSchema: createFieldSchema(AllSchemas.Slider),
+    propsSchema: createFieldSchema(AllSchemas.Slider, AllSchemas.FormItem, { includeDefault: true }),
   },
   designerLocales: AllLocales.Slider,
 });

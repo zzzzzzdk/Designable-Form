@@ -8,12 +8,12 @@ export const genDroppableWidgetStyle = (
   {
     [`.dn-droppable-placeholder`]: {
       height: '60px',
-      backgroundColor: `#f0f0f0`,
-      border: `1px dashed #aaa`,
+      backgroundColor: `${token.colorBgContainer}`,
+      border: `1px dashed ${token.colorBorder}`,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      color: `#666`,
+      color: `${token.colorText}`,
       fontWeight: 'lighter',
       fontSize: '13px',
     },

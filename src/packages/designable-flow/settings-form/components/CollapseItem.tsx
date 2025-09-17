@@ -21,7 +21,7 @@ export const genCollapseItemStyle = (
         color: token.colorText,
         borderTop: `1px solid ${token.colorBorder}`,
         borderBottom: `1px solid ${token.colorBorder}`,
-        backgroundColor: '#eee',
+        backgroundColor: `${token.colorBgBase}`,
         cursor: 'pointer',
         transition: 'all 0.25s ease-in-out',
         fontSize: '13px',

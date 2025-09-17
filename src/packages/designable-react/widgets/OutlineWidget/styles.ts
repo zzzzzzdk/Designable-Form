@@ -22,8 +22,8 @@ export const genOutlineTreeWidgetStyle = (
         padding: '8px',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderBottom: `1px solid #eee`,
-        color: `#333`,
+        borderBottom: `1px solid ${token.colorBorder}`,
+        color: `${token.colorText}`,
       },
       [`&-title`]: {
         fontSize: '16px',
@@ -68,9 +68,9 @@ export const genOutlineTreeWidgetStyle = (
         },
         [`&.selected`]: {
           [`& > .dn-outline-tree-node-header`]: {
-            backgroundColor: '#eee',
+            backgroundColor: `${token.colorBgContainer}`,
             [`.dn-outline-tree-node-header-head`]: {
-              backgroundColor: '#eee',
+              backgroundColor: `${token.colorBgContainer}`,
             },
           },
         },

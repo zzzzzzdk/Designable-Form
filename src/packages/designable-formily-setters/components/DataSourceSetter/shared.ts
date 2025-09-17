@@ -14,7 +14,7 @@ export const traverseTree = <T extends INode>(
   for (let i = 0; i < data.length; i++) {
     callback(data[i], i, data);
     if (data[i]?.children) {
-      traverseTree(data[i]?.children, callback);
+      traverseTree(data[i].children as T[], callback);
     }
   }
 };
@@ -25,9 +25,9 @@ export const transformValueToData = (value: IDataSourceItem[]): INodeItem[] => {
     return [];
   }
 
-  const data = clone(value);
-  traverseTree(data, (item, i, dataSource) => {
-    const dataItem = {
+  const data = clone(value) as any[];
+  traverseTree(data, (_, i, dataSource) => {
+    const dataItem: INodeItem = {
       key: '',
       duplicateKey: '',
       map: [],
@@ -35,10 +35,11 @@ export const transformValueToData = (value: IDataSourceItem[]): INodeItem[] => {
     };
     for (const [key, value] of Object.entries(dataSource[i] || {})) {
       if (key !== 'children') {
-        // 确保value属性有默认值
-        dataItem.map.push({ 
+        // 确保value属性有默认值，避免undefined
+        const safeValue = value !== undefined && value !== null ? value : '';
+        dataItem.map!.push({ 
           label: key, 
-          value: value !== undefined ? value : '' 
+          value: safeValue 
         });
       }
     }
@@ -53,15 +54,16 @@ export const transformValueToData = (value: IDataSourceItem[]): INodeItem[] => {
 };
 
 export const transformDataToValue = (data: INodeItem[]): IDataSourceItem[] => {
-  const value = clone(data);
-  traverseTree(value, (item, i, dataSource) => {
+  const value = clone(data) as any[];
+  traverseTree(value, (_, i, dataSource) => {
     const valueItem: IDataSourceItem = {
       children: [],
     };
-    toArr(dataSource[i].map).forEach((item) => {
-      if (item.label) {
-        // 确保value属性有默认值
-        valueItem[item.label] = item.value !== undefined ? item.value : '';
+    toArr(dataSource[i].map).forEach((mapItem) => {
+      if (mapItem.label) {
+        // 确保value属性有默认值，避免undefined
+        const safeValue = mapItem.value !== undefined && mapItem.value !== null ? mapItem.value : '';
+        (valueItem as any)[mapItem.label] = safeValue;
       }
     });
     

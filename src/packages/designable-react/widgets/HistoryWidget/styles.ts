@@ -19,10 +19,10 @@ export const genHistoryWidgetStyle = (
           fontSize: '10px',
         },
         [`&:hover`]: {
-          backgroundColor: '#eee',
+          backgroundColor: `${token.colorBgContainer}`,
         },
         [`&.active`]: {
-          backgroundColor: '#eee',
+          backgroundColor: `${token.colorBgContainer}`,
         },
       },
     },

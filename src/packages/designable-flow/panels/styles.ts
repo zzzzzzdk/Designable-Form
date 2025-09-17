@@ -62,7 +62,7 @@ export const genViewportPanelStyle = (
     [`.${prefixCls}`]: {
       flex: '1 auto',
       display: 'flex',
-      backgroundColor: '#eee',
+      backgroundColor: token.colorBgBase,
       padding: '4px',
       boxSizing: 'border-box',
       width: 0,

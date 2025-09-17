@@ -11,19 +11,19 @@ export const genDesignerToolsWidgetStyle = (
       alignItems: 'center',
       [`.ant-input-number`]: {
         fontSize: '12px !important',
-        background: `#fff !important`,
-        borderColor: `#eee !important`,
+        background: `${token.colorBgContainer} !important`,
+        borderColor: `${token.colorBorder} !important`,
         [`.ant-input-number-handler-wrap,.ant-input-number-handler`]: {
-          background: `#fff !important`,
-          borderColor: `#eee !important`,
-          color: `#222 !important`,
+          background: `${token.colorBgContainer} !important`,
+          borderColor: `${token.colorBorder} !important`,
+          color: `${token.colorText} !important`,
         },
         [`.ant-input-number-handler-down-inner,.ant-input-number-handler-up-inner`]:
           {
-            color: `#222 !important`,
+            color: `${token.colorText} !important`,
           },
         [`&:hover`]: {
-          borderColor: `#eee !important`,
+          borderColor: `${token.colorBorder} !important`,
         },
       },
     },

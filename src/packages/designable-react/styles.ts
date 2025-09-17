@@ -17,9 +17,9 @@ export const genAppStyle = (
         transition: 'all 0.25s ease-in-out',
       },
       [`::-webkit-scrollbar-thumb:hover`]: {
-        backgroundColor: '#f0f0f0',
+        backgroundColor: `${token.colorBorder}`,
       },
-      color: '#222',
+      color: `${token.colorText}`,
       fontSize: '14px',
       fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',

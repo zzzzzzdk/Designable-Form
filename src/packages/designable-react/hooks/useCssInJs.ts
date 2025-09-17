@@ -10,8 +10,8 @@ type CssInJsProps = {
 export const useCssInJs = (params?: CssInJsProps) => {
   const { theme, token, hashId } = useToken();
   const wrapSSR = useStyleRegister(
-    { theme, token, hashId, path: [params.prefix] },
-    () => [params?.styleFun?.(params?.prefix, token)],
+    { theme, token, hashId, path: [params?.prefix || ''] },
+    () => [params?.styleFun?.(params?.prefix || '', token)],
   );
   return { hashId, wrapSSR };
 };

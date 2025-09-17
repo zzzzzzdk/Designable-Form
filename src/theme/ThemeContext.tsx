@@ -12,11 +12,50 @@ export const lightTheme: ThemeConfig = {
     colorWarning: '#FF5B4D',
     colorInfo: '#FF8D1A',
     colorSuccess: '#33CC99',
+    colorText: '#222226',
+    fontSizeHeading1: 32,
+    fontSizeHeading2: 24,
+    fontSizeHeading3: 20,
+    fontSizeHeading4: 16,
+    fontSizeHeading5: 14,
+    fontSize: 14,
+    borderRadius: 4,
+    borderRadiusLG: 8,
+    borderRadiusSM: 4,
   },
   components: {
-    Menu: {
-      colorItemBg: '#ffffff',
-      colorItemBgHover: '#f5f5f5',
+    Button: {
+      paddingInlineLG: 20,
+      paddingInlineSM: 10,
+    },
+    Input: {
+      paddingInlineLG: 11,
+      paddingInline: 8,
+    },
+    InputNumber: {
+      paddingInlineLG: 11,
+      paddingInline: 8,
+    },
+    Slider: {
+      // controlSize: 6
+      dotActiveBorderColor: '#3377FF',
+      handleActiveColor: '#3377FF',
+      handleColor: '#3377FF',
+      trackBg: '#3377FF',
+      trackHoverBg: '#3377FF',
+      // handleActiveOutlineColor: '#3377FF',
+    },
+    Select: {
+      optionPadding: '6px 10px',
+    },
+    Cascader: {
+      optionPadding: '6px 10px',
+    },
+    Radio: {
+      buttonPaddingInline: 16
+    },
+    Upload: {
+      // actionsColor: '#3377FF',
     },
   },
 };
@@ -136,7 +175,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, themeConfig, setTheme: changeTheme }}>
+    <ThemeContext.Provider
+      value={{ theme, themeConfig, setTheme: changeTheme }}
+    >
       {children}
     </ThemeContext.Provider>
   );

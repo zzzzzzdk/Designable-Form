@@ -38,8 +38,8 @@ export const genStudioPanelStyle = (
         flexGrow: 0,
         flexShrink: 0,
         justifyContent: 'space-between',
-        background: `#fff`,
-        borderBottom: `1px solid #d9d9d9`,
+        background: `${token.colorBgContainer}`,
+        borderBottom: `1px solid ${token.colorBorder}`,
         padding: '4px',
         [`&-logo`]: {
           display: 'flex',
@@ -210,7 +210,7 @@ export const genWorkspacePanelStyle = (
       padding: '4px',
       overflow: 'hidden',
       boxSizing: 'border-box',
-      backgroundColor: '#eee',
+      backgroundColor: `${token.colorBgBase}`,
       position: 'relative',
       zIndex: 1,
       [`&-item`]: {

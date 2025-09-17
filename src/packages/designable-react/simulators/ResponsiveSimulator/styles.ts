@@ -7,7 +7,7 @@ export const genResponsiveSimulatorStyle = (
 ): CSSInterpolation => [
   {
     [`.${prefixCls}`]: {
-      backgroundColor: '#fff',
+      backgroundColor: `${token.colorBgContainer}`,
     },
     [`.dn-resize-handle`]: {
       position: 'absolute',
@@ -16,8 +16,8 @@ export const genResponsiveSimulatorStyle = (
       userSelect: 'none',
       bottom: 0,
       zIndex: 10,
-      background: '#eee',
-      color: '#444',
+      background: `${token.colorBgContainer}`,
+      color: `${token.colorText}`,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -46,8 +46,8 @@ export const genResponsiveSimulatorStyle = (
         width: '15px',
       },
       [`&:hover`]: {
-        background: '#f0f0f0',
-        color: '#666',
+        background: `${token.colorBgContainer}`,
+        color: `${token.colorBgTextHover}`,
       },
     },
   },

@@ -11,7 +11,7 @@ export const genMobileSimulatorStyle = (
       minHeight: '100px',
       height: '100%',
       width: '100%',
-      backgroundColor: '#eee',
+      backgroundColor: `${token.colorBgContainer}`,
       [`&-content`]: {
         width: '100%',
         top: 0,
@@ -20,13 +20,13 @@ export const genMobileSimulatorStyle = (
         position: 'absolute',
         overflow: 'overlay',
       },
-      ['&-body']: {
+      [`&-body`]: {
         display: 'flex',
         justifyContent: 'center',
         height: '100%',
         [`&-content`]: {
-          backgroundColor: `#fff`,
-          border: `3px solid #222`,
+          backgroundColor: `${token.colorBgContainer}`,
+          border: `3px solid ${token.colorBorder}`,
         },
       },
     },

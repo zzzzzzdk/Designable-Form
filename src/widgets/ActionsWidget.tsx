@@ -6,6 +6,7 @@ import { GlobalRegistry } from '@/packages/designable-core'
 import { observer } from '@formily/react'
 import { loadInitialSchema, saveSchema } from '../service'
 import { useTheme, themeOptions } from '../theme/ThemeContext.tsx'
+import dayjs from 'dayjs'
 
 export const ActionsWidget = observer(() => {
   const { message: messageApi } = App.useApp();
@@ -20,6 +21,7 @@ export const ActionsWidget = observer(() => {
   useEffect(() => {
     if (!supportLocales.includes(GlobalRegistry.getDesignerLanguage())) {
       GlobalRegistry.setDesignerLanguage('zh-cn')
+      dayjs.locale('zh-cn');
     }
   }, [])
   
@@ -36,6 +38,7 @@ export const ActionsWidget = observer(() => {
         ]}
         onChange={(e) => {
           GlobalRegistry.setDesignerLanguage(e.target.value)
+          dayjs.locale(e.target.value);
         }}
       />
       
