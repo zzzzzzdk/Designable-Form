@@ -23,8 +23,8 @@ Triones Designable 是一个基于 React、TypeScript 和 Vite 构建的可视�
 drivers/: 驱动模块，处理各种用户交互事件
 effects/: 效果模块，处理视图变换和交互效果
 models/: 数据模型，如 TreeNode、Engine、History 等
-events/: 事件系统 2.
-designable-react: React UI 组件封装，提供设计器界面元素
+events/: 事件系统 
+2. designable-react: React UI 组件封装，提供设计器界面元素
 
 3.  designable-formily-antd: 基于 Ant Design 的表单组件库
 

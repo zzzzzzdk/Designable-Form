@@ -30,3 +30,4 @@ export * from './FormTab';
 export * from './FormCollapse';
 export * from './FormGrid';
 export * from './MyCustom';
+export * from './FormPlate';

@@ -96,6 +96,24 @@
   --dn-droppable-bg-color: var(--dn-white-gray-lighter);
   --dn-droppable-border-color: var(--dn-white-gray-dark);
   --dn-droppable-color: var(--dn-gray-lighter);
+  // 车牌组件
+  --formplate-keyboard-border: var(--dn-panel-border-color);
+  --formplate-keyboard-item-hover-color: hsla(0,0%,100%,.15);
+  --formplate-keyboard-bg: var(--dn-white);
+  --formplate-keyboard-remind-color: rgba(34, 24, 28, 0.65);
+  --formplate-keyboard-del-bg: #ff7266;
+  --formplate-keyboard-del-color: #fff;
+  --formplate-keyboard-item-bg1: #eee;
+  --formplate-keyboard-item-color1: #22619c;
+  --formplate-keyboard-item-bg2: #eee;
+  --formplate-keyboard-item-color2: #353535;
+  --formplate-keyboard-item-bg3: #ecf5ff;
+  --formplate-keyboard-item-color3: #2b83e8;
+  --formplate-keyboard-item-bg4: #eee;
+  --formplate-keyboard-item-color4: #22619c;
+  --formplate-keyboard-item-bg5: #ecf5ff;
+  --formplate-keyboard-item-color5: #2b83e8;
+  --button-primary-background-color: var(--dn-brand-color);
 }
 
 .@{prefix-cls}-dark {
@@ -171,6 +189,25 @@
   --dn-droppable-bg-color: var(--dn-gray);
   --dn-droppable-border-color: var(--dn-gray-light);
   --dn-droppable-color: var(--dn-white);
+
+  // 车牌组件
+  --formplate-keyboard-bg: var(--dn-gray-dark);
+  --formplate-keyboard-border: var(--dn-gray-light);
+  --formplate-keyboard-remind-color: rgba(255, 255, 255, 0.65);
+  --formplate-keyboard-item-hover-color: hsla(0, 0%, 100%, 0.15);
+  --formplate-keyboard-del-bg: #ff7266;
+  --formplate-keyboard-del-color: rgba(255, 255, 255, 1);
+  --formplate-keyboard-item-bg1: rgba(128, 170, 255, 1);
+  --formplate-keyboard-item-color1: rgba(255, 255, 255, 1);
+  --formplate-keyboard-item-bg2: rgba(114, 147, 255, 1);
+  --formplate-keyboard-item-color2: rgba(255, 255, 255, 1);
+  --formplate-keyboard-item-bg3: rgba(94, 132, 255, 1);
+  --formplate-keyboard-item-color3: rgba(255, 255, 255, 1);
+  --formplate-keyboard-item-bg4: rgba(75, 117, 255, 1);
+  --formplate-keyboard-item-color4: rgba(255, 255, 255, 1);
+  --formplate-keyboard-item-bg5: rgba(68, 97, 243, 1);
+  --formplate-keyboard-item-color5: rgba(255, 255, 255, 1);
+  --button-primary-background-color: var(--dn-brand-color);
 }
 
 .@{prefix-cls}-app {
@@ -191,9 +228,10 @@
 
   color: var(--dn-gray-dark);
   font-size: 14px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
   font-variant: tabular-nums;
   line-height: 1.5715;
   font-feature-settings: 'tnum';

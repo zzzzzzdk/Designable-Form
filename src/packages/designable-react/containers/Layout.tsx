@@ -25,7 +25,7 @@ export const Layout: React.FC<IDesignerLayoutProps> = (props) => {
       ref={ref}
       className={cls({
         [`${prefixCls}app`]: true,
-        [`${prefixCls}${theme}`]: theme,
+        // [`${prefixCls}${theme}`]: theme,
       })}
     >
       <DesignerLayoutContext.Provider

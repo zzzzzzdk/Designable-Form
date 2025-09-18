@@ -29,6 +29,7 @@ import {
   ArrayTable,
   ArrayCards,
 } from '@formily/antd-v5';
+import { FormPlate } from '@/packages/designable-formily-antd';
 import { Card, Slider, Rate, Spin, App } from 'antd';
 import { TreeNode } from '@/packages/designable-core';
 import { transformToSchema } from '@/packages/designable-formily-transformer';
@@ -204,9 +205,9 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
     };
   }, [schema, messageApi]);
 
-  useEffect(() => {
-    console.log('runtimeSchema changed:', runtimeSchema);
-  }, [runtimeSchema]);
+  // useEffect(() => {
+  //   console.log('runtimeSchema changed:', runtimeSchema);
+  // }, [runtimeSchema]);
 
   const SchemaField = useMemo(() => {
     return createSchemaField({
@@ -240,6 +241,7 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
         Card,
         Slider,
         Rate,
+        FormPlate,
       },
     });
   }, []);

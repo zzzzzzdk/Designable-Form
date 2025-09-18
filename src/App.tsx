@@ -57,6 +57,7 @@ import {
   FormCollapse,
   FormLayout,
   MyCustom,
+  FormPlate,
 } from '@/packages/designable-formily-antd';
 import {
   SettingsForm,
@@ -148,6 +149,7 @@ function App() {
     FormCollapse,
     FormLayout,
     MyCustom,
+    FormPlate,
   };
 
   return (
@@ -168,6 +170,10 @@ function App() {
         >
           <CompositePanel>
             <CompositePanel.Item title="panels.Component" icon="Component">
+              <ResourceWidget
+                title="业务组件"
+                sources={[MyCustom, FormPlate]}
+              />
               <ResourceWidget
                 title="输入控件"
                 sources={[

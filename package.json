@@ -23,11 +23,13 @@
     "@trionesdev/designable-shared": "^0.0.7-beta.2",
     "antd": "^5.8.0",
     "cross-env": "^7.0.3",
+    "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
+    "@types/lodash": "^4.17.20",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
