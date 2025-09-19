@@ -23,7 +23,10 @@
     "@trionesdev/designable-shared": "^0.0.7-beta.2",
     "antd": "^5.8.0",
     "cross-env": "^7.0.3",
+    "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
+    "rc-trigger": "^5.3.4",
+    "rc-virtual-list": "^3.19.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

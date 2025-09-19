@@ -27,3 +27,4 @@ export * from './ArrayTable';
 export * from './ArrayCards';
 export * from './FormPlate';
 export * from './MyCustom';
+export * from './FormVehicleModel';

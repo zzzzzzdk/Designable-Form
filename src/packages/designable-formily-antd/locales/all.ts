@@ -31,3 +31,4 @@ export * from './FormCollapse';
 export * from './FormGrid';
 export * from './MyCustom';
 export * from './FormPlate';
+export * from './FormVehicleModel';

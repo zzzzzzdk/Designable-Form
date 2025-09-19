@@ -155,7 +155,6 @@ function PlateKeyboard(props: PlateKeyboardProps) {
   }, [data, province]);
 
   useEffect(() => {
-    console.log('show', show);
     if (show) {
       keyboardPositionH();
     }
