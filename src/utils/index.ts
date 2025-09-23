@@ -1,10 +1,9 @@
 
 import { getToken, getRToken, setToken, setRToken, setID, getID, removeToken } from './cookie'
-import { encryptData, rsaUtil, aesUtil } from './encryption'
 import L from 'leaflet'
 import 'proj4/dist/proj4-src'
 import 'proj4leaflet/src/proj4leaflet'
-import omit from './omit';
+// import omit from './omit';
 
 export function isObject(params: any) {
   return Object.prototype.toString.call(params) === '[object Object]'
@@ -337,6 +336,5 @@ export function numberFormat(num: number, decimal = 2) {
 
 export {
   getToken, getRToken, setToken, setRToken, setID, getID, removeToken,
-  encryptData, rsaUtil, aesUtil,
   regular
 }

@@ -32,3 +32,5 @@ export * from './FormGrid';
 export * from './MyCustom';
 export * from './FormPlate';
 export * from './FormVehicleModel';
+export * from './ImgZoom';
+export * from './CheckableTag';

@@ -8,7 +8,11 @@ import FormVehicleModelWrapper from './FormVehicleModelWrapper'
 
 export const FormVehicleModel: DnFC<
   React.ComponentProps<typeof FormVehicleModelWrapper>
-> = FormVehicleModelWrapper;
+> = (props) => {
+  // 在预览模式下设置previewMode为true
+  const isPreviewMode = typeof window !== 'undefined' && window.location.pathname.includes('/preview');
+  return <FormVehicleModelWrapper {...props} previewMode={isPreviewMode} />;
+};
 
 FormVehicleModel.Behavior = createBehavior({
   name: 'FormVehicleModel',

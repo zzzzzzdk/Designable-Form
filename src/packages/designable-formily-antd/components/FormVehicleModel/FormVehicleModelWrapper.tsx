@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import VehicleModel from './VehicleModel';
-import type { 
-  VehicleModelProps, 
-  brandProps, 
-  modelProps, 
-  yearProps 
+import type {
+  VehicleModelProps,
+  brandProps,
+  modelProps,
+  yearProps,
 } from './interface';
 
-interface FormVehicleModelWrapperProps extends Omit<VehicleModelProps, 'brandData' | 'allBrandData' | 'hotBrands' | 'modelData' | 'yearData'> {
+interface FormVehicleModelWrapperProps
+  extends Omit<
+    VehicleModelProps,
+    'brandData' | 'allBrandData' | 'hotBrands' | 'modelData' | 'yearData'
+  > {
+  // 预览模式控制
+  previewMode?: boolean; // 是否在预览模式下，为true时才请求数据
+
   // 接口配置
-  bmyApi?: string;          // 获取品牌/型号/年款数据的接口地址
-  hotBrandApi?: string;     // 获取热门品牌的接口地址
-  
+  bmyApi?: string; // 获取品牌/型号/年款数据的接口地址
+  hotBrandApi?: string; // 获取热门品牌的接口地址
+
   // 请求选项
   requestHeaders?: Record<string, string>;
   requestTimeout?: number;
   requestRetryCount?: number;
   requestRetryDelay?: number;
-  
+
   // 数据转换函数
   brandTransformer?: (data: any) => { [key: string | number]: brandProps };
   modelTransformer?: (data: any) => { [key: string | number]: modelProps[] };
@@ -27,7 +34,8 @@ interface FormVehicleModelWrapperProps extends Omit<VehicleModelProps, 'brandDat
 }
 
 function FormVehicleModelWrapper(props: FormVehicleModelWrapperProps) {
-  const { 
+  const {
+    previewMode = false,
     // 直接属性
     bmyApi = 'http://localhost:3002/api/pdm/v1/common/bmy',
     hotBrandApi = 'http://localhost:3002/api/pdm/v1/common/hot-brands',
@@ -40,21 +48,27 @@ function FormVehicleModelWrapper(props: FormVehicleModelWrapperProps) {
     yearTransformer,
     hotBrandTransformer,
     allBrandTransformer,
-    
+
     loading: propsLoading,
     onFocus,
     onBlur,
     onChange,
-    ...restProps 
+    ...restProps
   } = props;
 
   // 数据状态
-  const [brandData, setBrandData] = useState<{ [key: string | number]: brandProps }>({});
-  const [modelData, setModelData] = useState<{ [key: string | number]: modelProps[] }>({});
-  const [yearData, setYearData] = useState<{ [key: string | number]: yearProps[] }>({});
+  const [brandData, setBrandData] = useState<{
+    [key: string | number]: brandProps;
+  }>({});
+  const [modelData, setModelData] = useState<{
+    [key: string | number]: modelProps[];
+  }>({});
+  const [yearData, setYearData] = useState<{
+    [key: string | number]: yearProps[];
+  }>({});
   const [hotBrands, setHotBrands] = useState<(string | number)[]>([]);
   const [allBrandData, setAllBrandData] = useState<Array<string[]>>([]);
-  
+
   // 加载和错误状态
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -62,21 +76,27 @@ function FormVehicleModelWrapper(props: FormVehicleModelWrapperProps) {
   // 默认请求头
   const defaultHeaders = {
     'Content-Type': 'application/json',
-    ...requestHeaders
+    ...requestHeaders,
   };
 
   // 默认数据转换函数
-  const defaultBrandTransformer = (data: any): { [key: string | number]: brandProps } => {
+  const defaultBrandTransformer = (
+    data: any,
+  ): { [key: string | number]: brandProps } => {
     if (!data || typeof data !== 'object') return {};
     return data;
   };
 
-  const defaultModelTransformer = (data: any): { [key: string | number]: modelProps[] } => {
+  const defaultModelTransformer = (
+    data: any,
+  ): { [key: string | number]: modelProps[] } => {
     if (!data || typeof data !== 'object') return {};
     return data;
   };
 
-  const defaultYearTransformer = (data: any): { [key: string | number]: yearProps[] } => {
+  const defaultYearTransformer = (
+    data: any,
+  ): { [key: string | number]: yearProps[] } => {
     if (!data || typeof data !== 'object') return {};
     return data;
   };
@@ -95,35 +115,37 @@ function FormVehicleModelWrapper(props: FormVehicleModelWrapperProps) {
   const resolvedBrandTransformer = brandTransformer || defaultBrandTransformer;
   const resolvedModelTransformer = modelTransformer || defaultModelTransformer;
   const resolvedYearTransformer = yearTransformer || defaultYearTransformer;
-  const resolvedHotBrandTransformer = hotBrandTransformer || defaultHotBrandTransformer;
-  const resolvedAllBrandTransformer = allBrandTransformer || defaultAllBrandTransformer;
+  const resolvedHotBrandTransformer =
+    hotBrandTransformer || defaultHotBrandTransformer;
+  const resolvedAllBrandTransformer =
+    allBrandTransformer || defaultAllBrandTransformer;
 
   // 带重试机制的请求函数
   const fetchWithRetry = async (
     url: string,
     options: RequestInit = {},
     retryCount = requestRetryCount || 0,
-    currentAttempt = 0
+    currentAttempt = 0,
   ): Promise<any> => {
     try {
       const response = await fetch(url, {
         ...options,
         headers: {
           ...defaultHeaders,
-          ...options.headers
+          ...options.headers,
         },
         // timeout: requestTimeout || 30000
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      
+
       return await response.json();
     } catch (err) {
       if (currentAttempt < retryCount) {
         const delay = requestRetryDelay || 1000;
-        await new Promise(resolve => setTimeout(resolve, delay));
+        await new Promise((resolve) => setTimeout(resolve, delay));
         return fetchWithRetry(url, options, retryCount, currentAttempt + 1);
       }
       throw err;
@@ -134,35 +156,32 @@ function FormVehicleModelWrapper(props: FormVehicleModelWrapperProps) {
   const fetchAllData = async () => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
       // 并行请求所有数据
       const requests = [];
-      
+
       if (bmyApi) {
         requests.push(
-          fetchWithRetry(bmyApi).then(res => {
-            let { brand, model, year } = res.data as any
+          fetchWithRetry(bmyApi).then((res) => {
+            const { brand, model, year } = res.data as any;
             setBrandData(resolvedBrandTransformer(brand));
             setModelData(resolvedModelTransformer(model));
             setYearData(resolvedYearTransformer(year));
-          })
+          }),
         );
       }
-      
+
       if (hotBrandApi) {
         requests.push(
-          fetchWithRetry(hotBrandApi).then(res => {
-             let { brands, hotBrands } = res.data as any
+          fetchWithRetry(hotBrandApi).then((res) => {
+            const { brands, hotBrands } = res.data as any;
             setHotBrands(resolvedHotBrandTransformer(hotBrands));
             setAllBrandData(resolvedAllBrandTransformer(brands));
-
-          })
+          }),
         );
       }
-      
-    
-      
+
       // 等待所有请求完成
       await Promise.all(requests);
     } catch (err) {
@@ -173,10 +192,13 @@ function FormVehicleModelWrapper(props: FormVehicleModelWrapperProps) {
     }
   };
 
-  // 组件挂载时获取数据
+  // 组件挂载时获取数据，只在预览模式下请求
   useEffect(() => {
-    fetchAllData();
+    if (previewMode) {
+      fetchAllData();
+    }
   }, [
+    previewMode,
     bmyApi,
     hotBrandApi,
     requestRetryCount,
@@ -187,7 +209,7 @@ function FormVehicleModelWrapper(props: FormVehicleModelWrapperProps) {
     modelTransformer,
     yearTransformer,
     hotBrandTransformer,
-    allBrandTransformer
+    allBrandTransformer,
   ]);
 
   // 处理焦点事件
@@ -210,13 +232,13 @@ function FormVehicleModelWrapper(props: FormVehicleModelWrapperProps) {
     modelValue: VehicleModelProps['modelValue'],
     yearValue: VehicleModelProps['yearValue'],
     extra: {
-      brandData: brandProps | brandProps[] | undefined,
-      modelData: modelProps[],
-      yearData: yearProps[]
-    }
+      brandData: brandProps | brandProps[] | undefined;
+      modelData: modelProps[];
+      yearData: yearProps[];
+    },
   ) => {
     if (onChange) {
-      onChange(brandValue, modelValue, yearValue, extra);
+      onChange(brandValue, modelValue || [], yearValue || [], extra);
     }
   };
 

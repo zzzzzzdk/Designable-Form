@@ -29,7 +29,7 @@ import {
   ArrayTable,
   ArrayCards,
 } from '@formily/antd-v5';
-import { FormPlate, FormVehicleModel } from '@/packages/designable-formily-antd';
+import { FormPlate, FormVehicleModel, ImgZoom, CheckableTag } from '@/packages/designable-formily-antd';
 import { Card, Slider, Rate, Spin, App } from 'antd';
 import { TreeNode } from '@/packages/designable-core';
 import { transformToSchema } from '@/packages/designable-formily-transformer';
@@ -242,7 +242,9 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
         Slider,
         Rate,
         FormPlate,
-        FormVehicleModel
+        FormVehicleModel,
+        ImgZoom,
+        CheckableTag,
       },
     });
   }, []);

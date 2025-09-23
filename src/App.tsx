@@ -58,7 +58,9 @@ import {
   FormLayout,
   MyCustom,
   FormPlate,
-  FormVehicleModel
+  FormVehicleModel,
+  ImgZoom,
+  CheckableTag,
 } from '@/packages/designable-formily-antd';
 import {
   SettingsForm,
@@ -151,7 +153,9 @@ function App() {
     FormLayout,
     MyCustom,
     FormPlate,
-    FormVehicleModel
+    FormVehicleModel,
+    ImgZoom,
+    CheckableTag,
   };
 
   return (
@@ -174,7 +178,13 @@ function App() {
             <CompositePanel.Item title="panels.Component" icon="Component">
               <ResourceWidget
                 title="业务组件"
-                sources={[MyCustom, FormPlate, FormVehicleModel]}
+                sources={[
+                  MyCustom,
+                  FormPlate,
+                  FormVehicleModel,
+                  ImgZoom,
+                  CheckableTag,
+                ]}
               />
               <ResourceWidget
                 title="输入控件"

@@ -112,7 +112,7 @@ export interface VehicleModelProps {
   /**
    * loading
    */
-  loading?: Boolean;
+  loading?: boolean;
   /**
    * loading 自定义图标
    */
@@ -120,11 +120,11 @@ export interface VehicleModelProps {
   /**
    * 边框
    */
-  bordered?: Boolean;
+  bordered?: boolean;
   /**
    * 分隔符号
    */
-  separator?: String;
+  separator?: string;
   /**
    * 菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。
    */
@@ -132,7 +132,7 @@ export interface VehicleModelProps {
   getTargetContainer?: () => HTMLElement;
   targetPosition?: 'left' | 'right';
   maxHeight?: number;
-  destroyPopupOnHide?: Boolean;
+  destroyPopupOnHide?: boolean;
   /**
   * 获取焦点回调
   */
@@ -155,6 +155,14 @@ export interface VehicleModelProps {
 
 
 export interface brandListProps {
-  isMultiple?: Boolean;
-  prefixCls?: String;
+  isMultiple?: boolean;
+  prefixCls?: string;
+}
+export interface modelListProps {
+  isMultiple?: boolean;
+  prefixCls?: string;
+}
+export interface yearListProps {
+  isMultiple?: boolean;
+  prefixCls?: string;
 }

@@ -56,10 +56,10 @@ export const effectLocales = (node: TreeNode) => {
         if (field.dataSource?.length) {
           field.dataSource = field.dataSource.map(mapEnum(dataSource)).filter(item => item.value !== null);
         } else {
-          field.dataSource = dataSource.slice().filter(item => item.value !== null);
+          field.dataSource = dataSource.slice()?.filter(item => item.value !== null) || [];
         }
       } else {
-        field.dataSource = field.dataSource?.filter(Boolean);
+        field.dataSource = field.dataSource?.filter(Boolean) || [];
       }
     }
   });

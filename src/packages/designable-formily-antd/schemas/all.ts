@@ -28,3 +28,5 @@ export * from './ArrayCards';
 export * from './FormPlate';
 export * from './MyCustom';
 export * from './FormVehicleModel';
+export * from './ImgZoom';
+export * from './CheckableTag';
