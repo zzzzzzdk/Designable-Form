@@ -95,6 +95,55 @@ export const getMimeTypeFromBase64 = (base64String: string): string => {
 };
 
 /**
+ * 将图片URL转换为base64字符串
+ * @param url 图片URL或路径
+ * @returns Promise<string> base64编码的图片字符串
+ */
+export const urlToBase64 = async (url: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    try {
+      const image = new Image();
+      // 设置跨域
+      image.crossOrigin = 'anonymous';
+      
+      image.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        if (!ctx) {
+          reject(new Error('无法获取Canvas上下文'));
+          return;
+        }
+        
+        // 设置canvas大小与图片一致
+        canvas.width = image.width;
+        canvas.height = image.height;
+        
+        // 在canvas上绘制图片
+        ctx.drawImage(image, 0, 0);
+        
+        // 将canvas内容转换为base64
+        try {
+          const base64 = canvas.toDataURL('image/png');
+          resolve(base64);
+        } catch (error) {
+          reject(new Error(`Canvas转换为base64失败: ${error}`));
+        }
+      };
+      
+      image.onerror = (err) => {
+        reject(new Error(`图片加载失败: ${err}`));
+      };
+      
+      // 设置图片源
+      image.src = url;
+    } catch (error) {
+      reject(new Error(`转换URL为base64失败: ${error}`));
+    }
+  });
+};
+
+/**
  * 生成唯一的文件名
  * @param originalName 原始文件名
  * @param extension 文件扩展名

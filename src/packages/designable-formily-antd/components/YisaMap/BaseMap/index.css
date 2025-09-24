@@ -1,0 +1,22 @@
+.ysc-map-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ysc-map {
+  width: 100%;
+  height: 100%;
+}
+
+.ysc-map-component {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.ysc-map-component > * {
+  pointer-events: all;
+}

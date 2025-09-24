@@ -12,11 +12,11 @@ import './index.css';
 dayjs.locale('zh-cn');
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  // <StrictMode>
     <ThemeProvider>
       <AntApp>
         <App />
       </AntApp>
-    </ThemeProvider>
-  </StrictMode>,
+    </ThemeProvider>,
+  // </StrictMode>,
 );

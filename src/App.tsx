@@ -61,6 +61,7 @@ import {
   FormVehicleModel,
   ImgZoom,
   CheckableTag,
+  YisaMap,
 } from '@/packages/designable-formily-antd';
 import {
   SettingsForm,
@@ -156,6 +157,7 @@ function App() {
     FormVehicleModel,
     ImgZoom,
     CheckableTag,
+    YisaMap,
   };
 
   return (
@@ -184,6 +186,7 @@ function App() {
                   FormVehicleModel,
                   ImgZoom,
                   CheckableTag,
+                  YisaMap,
                 ]}
               />
               <ResourceWidget

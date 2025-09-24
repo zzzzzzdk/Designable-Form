@@ -30,3 +30,4 @@ export * from './MyCustom';
 export * from './FormVehicleModel';
 export * from './ImgZoom';
 export * from './CheckableTag';
+export * from './YisaMap';
