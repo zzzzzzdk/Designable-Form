@@ -58,6 +58,8 @@ const CheckableTag: DnFC<CheckableTagProps> = (props) => {
     // labelName = '标签选择',
     fieldName = 'checkableTag',
     showAsRadio = false,
+    disabled = false,
+    readOnly = false,
   } = props as CheckableTagProps & { enum?: characterDataType[] };
   const prefixCls = 'checkable-tag';
 
@@ -96,6 +98,11 @@ const CheckableTag: DnFC<CheckableTagProps> = (props) => {
     event: CheckboxChangeEvent,
     elem: characterDataType,
   ) => {
+    // 在disabled或readOnly状态下不执行任何操作
+    if (disabled || readOnly) {
+      return;
+    }
+
     const { value: targetValue, checked } = event.target;
     const { cancelOther } = elem;
     // 确保 value 是数组
@@ -225,6 +232,7 @@ const CheckableTag: DnFC<CheckableTagProps> = (props) => {
                 value={elem.value}
                 key={elem.value}
                 onChange={(event) => handleCheckboxChange(event, elem)}
+                disabled={disabled || readOnly}
               >
                 {renderText(elem)}
               </Checkbox>

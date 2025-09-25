@@ -92,6 +92,7 @@ export function Plate(props: FormPlateProps) {
     keyboardClassName,
     province = '京',
     disabled = false,
+    readOnly = false,
     remind = (
       <div>
         提示：请输入准确车牌号（如：鲁A12345）或模糊车牌号码。模糊搜索时可用“*”代替任意位数，“？”代替一位数。（如：
@@ -375,7 +376,7 @@ export function Plate(props: FormPlateProps) {
     <div className={cn}>
       {isShowColor && (
         <Select
-          disabled={disabled}
+          disabled={disabled || readOnly}
           ref={selectDomRef}
           listHeight={300}
           className={dropdownClassName}
@@ -408,7 +409,7 @@ export function Plate(props: FormPlateProps) {
       <div className={prefixCls + '-form-input'} id={inputId}>
         <Input
           allowClear={allowClear}
-          disabled={disabled}
+          disabled={disabled || readOnly}
           ref={inputDomRef}
           placeholder={placeholder}
           value={innerValue.plateNumber}
@@ -421,7 +422,7 @@ export function Plate(props: FormPlateProps) {
       {isShowNoPlate && (
         <span className="no-plate-wrap" onClick={handleRadChange}>
           <Radio.Group
-            disabled={disabled}
+            disabled={disabled || readOnly}
             options={noplateOption}
             value={innerValue.noplate}
           />

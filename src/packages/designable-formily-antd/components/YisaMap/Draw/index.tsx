@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useState, useEffect, useRef } from 'react';
 import L, { Circle, Rectangle, Polyline, Polygon } from 'leaflet';
-import { DrawProps, DrawVectorData } from './interface';
+import { DrawProps, DrawVectorData, Type } from './interface';
 import Icon from '@/packages/designable-formily-antd/components/Icon';
 import './index.css'
 
@@ -27,7 +27,7 @@ function Draw(props: DrawProps) {
       fillColor: '#99ddb4',
       fillOpacity: 0.7,
     },
-    saveVectorType = '1', // 1：只保留上一次绘制的图形；2: 保留所有绘制的图形；3、不保留绘制的图形
+    saveVectorType = '3', // 1：只保留上一次绘制的图形；2: 保留所有绘制的图形；3、不保留绘制的图形
     saveTime = 1000, // saveVectorTyp为3，不保留绘制的图形时有效，图形删除延迟
     onChange = () => {}, // 绘制完图形回调事件
   } = props;
@@ -90,17 +90,17 @@ function Draw(props: DrawProps) {
 
   // 监听绘制类型
   useEffect(() => {
-    handleDrawType();
+    handleDrawType(type);
   }, [type]);
 
-  const handleDrawType = (selectedType?: string) => {
+  const handleDrawType = (selectedType?: Type) => {
     // 如果传入了类型参数，则更新当前类型状态
     const targetType = selectedType || type;
     if (selectedType) {
       setCurrentDrawType(targetType);
     }
     
-    setDrawData(null);
+    // setDrawData(null);
     drawing.current = false;
     handleClearDrawData(true);
     if (targetType === 'default') {
@@ -135,7 +135,7 @@ function Draw(props: DrawProps) {
   };
 
   const handleClearDrawData = (reset = false) => {
-    const { circle, rectangle, polyline, polygon } = drawData || {};
+    const { circle, rectangle, polyline, polygon } = drawDataRef.current || {};
 
     if (circle) {
       circle.remove();

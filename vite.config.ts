@@ -13,6 +13,6 @@ export default defineConfig({
     },
   },
   build: {
-    assetsInlineLimit: 102400, // 设置为0表示所有资源都不内联，可根据需要调整大小阈值
+    assetsInlineLimit: 1024000, // 设置为0表示所有资源都不内联，可根据需要调整大小阈值
   },
 })

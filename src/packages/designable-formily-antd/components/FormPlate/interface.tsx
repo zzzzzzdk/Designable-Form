@@ -110,6 +110,13 @@ export interface FormPlateProps {
   * 是否禁用
   */
   disabled?: boolean;
+  /**
+   * 是否只读
+   */
+  readOnly?: boolean;
+  /**
+   * 是否可清空
+   */
   allowClear?: boolean
   /**
    * 是否精确车牌，不显示？和*

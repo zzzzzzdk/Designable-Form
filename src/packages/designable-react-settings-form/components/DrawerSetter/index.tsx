@@ -6,10 +6,12 @@ import {
   IconWidget,
   usePrefix,
   useTreeNode,
+  useCssInJs,
 } from '@/packages/designable-react';
 import { Button, ButtonProps } from 'antd';
-import cls from 'classnames';
+import cls from 'classnames'; 
 // import './styles.less'
+import { genDrawerSetterStyle } from './styles.ts';
 
 export interface IDrawerSetterProps {
   text: React.ReactNode;
@@ -24,6 +26,10 @@ export const DrawerSetter: React.FC<IDrawerSetterProps> = observer((props) => {
   const [root, setRoot] = useState<Element>();
   const prefix = usePrefix('drawer-setter');
   const formWrapperCls = usePrefix('settings-form-wrapper');
+  const { hashId, wrapSSR } = useCssInJs({
+    prefix,
+    styleFun: genDrawerSetterStyle,
+  });
   useLayoutEffect(() => {
     const wrapper = document.querySelector('.' + formWrapperCls);
     if (wrapper) {
@@ -35,9 +41,14 @@ export const DrawerSetter: React.FC<IDrawerSetterProps> = observer((props) => {
     if (root && visible) {
       return createPortal(
         <div
-          className={cls(prefix, 'animate__animated animate__slideInRight', {
-            animate__slideOutRight: remove,
-          })}
+          className={cls(
+            prefix,
+            'animate__animated animate__slideInRight',
+            {
+              animate__slideOutRight: remove,
+            },
+            hashId,
+          )}
         >
           <div className={prefix + '-header'} onClick={handleClose}>
             <IconWidget infer="Return" size={18} />
@@ -77,11 +88,13 @@ export const DrawerSetter: React.FC<IDrawerSetterProps> = observer((props) => {
   };
 
   return (
-    <Fragment>
-      <Button block onClick={handleOpen} {...props.triggerProps}>
-        {props.text || field.title}
-      </Button>
-      {renderDrawer()}
-    </Fragment>
+    wrapSSR(
+      <Fragment>
+        <Button block onClick={handleOpen} {...props.triggerProps}>
+          {props.text || field.title}
+        </Button>
+        {renderDrawer()}
+      </Fragment>
+    )
   );
 });

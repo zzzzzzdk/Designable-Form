@@ -39,7 +39,8 @@ function VehicleModel(props: VehicleModelProps) {
     style,
     wrapperClassName,
     wrapperStyle,
-    disabled,
+    disabled = false,
+    readOnly = false,
     placeholder = '请选择',
     searchPlaceholder = '搜索',
     renderFormat,
@@ -177,7 +178,7 @@ function VehicleModel(props: VehicleModelProps) {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     type: string = 'enter',
   ): void => {
-    if (disabled) return;
+    if (disabled || readOnly) return;
     setHovered(type === 'enter' ? true : false);
   };
 
@@ -185,7 +186,7 @@ function VehicleModel(props: VehicleModelProps) {
     e: React.FocusEvent<HTMLDivElement, Element>,
     type: string = 'focus',
   ): void => {
-    if (disabled) return;
+    if (disabled || readOnly) return;
     setFocused(type === 'focus' ? true : false);
     if (type === 'focus') {
       onFocus && onFocus(e);
@@ -195,7 +196,7 @@ function VehicleModel(props: VehicleModelProps) {
   };
 
   const handleChangeVisible = (value: boolean) => {
-    if (disabled) {
+    if (disabled || readOnly) {
       console.log('Change visible blocked by disabled state');
       return;
     }
@@ -324,7 +325,7 @@ function VehicleModel(props: VehicleModelProps) {
 
   const handleRenderSuffixIcon = () => {
     const icons = [
-      disabled && handleRenderArrowIcon(),
+      (disabled || readOnly) && handleRenderArrowIcon(),
       loading && handleRenderLoadingIcon(),
       !isEmpty && allowClear && hovered && handleRenderClearIcon(),
       isEmpty && handleRenderArrowIcon(),
@@ -383,13 +384,13 @@ function VehicleModel(props: VehicleModelProps) {
     return wrapSSR(
       <div
         ref={contentRef}
-        tabIndex={disabled ? -1 : 0}
+        tabIndex={disabled || readOnly ? -1 : 0}
         onFocus={(e) => onFocused(e, 'focus')}
         onBlur={(e) => onFocused(e, 'blur')}
         onMouseOver={(e) => onHovered(e, 'enter')}
         onMouseLeave={(e) => onHovered(e, 'leave')}
         onClick={() => {
-          if (disabled) return;
+          if (disabled || readOnly) return;
           // Scheme B: manual control of visibility
           handleChangeVisible(true);
         }}
@@ -401,10 +402,10 @@ function VehicleModel(props: VehicleModelProps) {
             [`${prefixCls}-single`]: !isMultiple,
             [`${prefixCls}-open`]: visible,
             [`${prefixCls}-size-${size}`]: size,
-            [`${prefixCls}-hover`]: !disabled && !error && hovered,
+            [`${prefixCls}-hover`]: !(disabled || readOnly) && !error && hovered,
             [`${prefixCls}-focused`]: visible || focused,
             [`${prefixCls}-error`]: !!error,
-            [`${prefixCls}-disabled`]: disabled,
+            [`${prefixCls}-disabled`]: disabled || readOnly,
             [`${prefixCls}-no-border`]: !bordered,
           },
           className,

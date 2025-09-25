@@ -1,7 +1,7 @@
 import { Map, PathOptions, LatLng } from 'leaflet'
 import * as geojson from 'geojson'
 
-type Type = 'default' | 'circle' | 'rectangle' | 'polyline' | 'polygon' | 'clear'
+export type Type = 'default' | 'circle' | 'rectangle' | 'polyline' | 'polygon' | 'clear'
 export type DrawVectorData = {
   type?: Type,
   radius?: number,

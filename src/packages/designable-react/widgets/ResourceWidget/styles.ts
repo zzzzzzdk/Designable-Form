@@ -52,7 +52,7 @@ export const genResourceWidgetStyle = (
       [`&-item`]: {
         position: 'relative',
         userSelect: 'none',
-         background: 'var(--dn-resource-content-bg-color)',
+        background: 'var(--dn-composite-panel-tabs-content-bg-color)',
         minHeight: '40px',
         color: 'var(--dn-resource-item-color)',
         display: 'flex',
@@ -73,7 +73,7 @@ export const genResourceWidgetStyle = (
           textAlign: 'center',
           fontSize: '12px',
           lineHeight: 1,
-          marginBottom: '12px'
+          marginBottom: '12px',
         },
         [`&-remain`]: {
           background: 'var(--dn-resource-content-bg-color)',

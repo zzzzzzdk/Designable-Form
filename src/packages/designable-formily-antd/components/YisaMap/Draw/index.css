@@ -4,8 +4,8 @@
   top: 0;
   left: 0;
   padding: 5px;
-  background-color: white;
-  border: 1px solid #ccc;
+  background-color: var(--dn-composite-panel-tabs-content-bg-color);
+  border: 1px solid var(--dn-composite-panel-tabs-content-bg-color);
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -14,7 +14,7 @@
 .outer-draw-tools>span {
   margin-right: 8px;
   cursor: pointer;
-  color: #333;
+  color: var(--vehicle-model-wrapper-color);
   display: inline-block;
   text-align: center;
 }
@@ -26,7 +26,7 @@
 .draw-tools-text {
   margin-left: 10px;
   font-size: 12px;
-  color: #666;
+  color: var(--vehicle-model-wrapper-color);
 }
 
 /* 图标样式占位符 */

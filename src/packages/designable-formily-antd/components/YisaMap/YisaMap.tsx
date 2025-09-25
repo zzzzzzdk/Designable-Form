@@ -18,6 +18,7 @@ import Popup from './Popup';
 import { isFunction, isUndefined, isArray } from '@/utils';
 import { urlToBase64 } from '@/utils/imageUtils';
 import useMergedState from 'rc-util/lib/hooks/useMergedState';
+import { Type } from './Draw/interface';
 
 // 模拟的点位数据
 const mockLocationData = {
@@ -107,6 +108,9 @@ export interface YisaMapProps extends MapProps {
   requestRetryCount?: number;
   requestRetryDelay?: number;
   locationDataTransformer?: string;
+  // 控制组件状态
+  disabled?: boolean;
+  readOnly?: boolean;
 }
 
 export function formatValue(value: any) {
@@ -115,7 +119,6 @@ export function formatValue(value: any) {
   return val;
 }
 const YisaMap: React.FC<YisaMapProps> = (props) => {
- 
   const {
     showScale = false,
     value = [],
@@ -131,8 +134,12 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
     requestRetryCount = 0,
     requestRetryDelay = 1000,
     locationDataTransformer,
+    // 控制组件状态
+    disabled = false,
+    readOnly = false,
     ...otherMapProps
   } = props;
+  console.log('props:', props);
   const [markerData, setMarkerData] = useState<any[]>([]);
   const markerDataRef = useRef<any[]>(markerData);
   markerDataRef.current = markerData;
@@ -144,7 +151,7 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
   );
   const checkedLocationIdsSet = new Set(checkedLocationIds);
   const [clickData, setClickData] = useState<any>([]);
-
+  const [drawType, setDrawType] = useState<Type>('default');
   const [popupVisible, setPopupVisible] = useState(false);
   // 加载和错误状态
   const [isLoading, setIsLoading] = useState(false);
@@ -269,6 +276,11 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
 
   // 处理绘制变化
   const handleDrawChange = (type: string, callbackData?: any) => {
+    // 在disabled或readOnly状态下不执行任何操作
+    if (disabled || readOnly) {
+      return;
+    }
+
     console.log('handleDrawChange', type, callbackData);
 
     if (type !== 'clear' && callbackData) {
@@ -281,6 +293,7 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
       // 清除选择
       setCheckedLocationIds([]);
     }
+    // setDrawType('default')
   };
 
   // 处理鼠标按下事件
@@ -290,6 +303,11 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
   };
 
   const handleChangeLocationItem = (id: string, isChecked: boolean) => {
+    // 在disabled或readOnly状态下不执行任何操作
+    if (disabled || readOnly) {
+      return;
+    }
+
     let _value = checkedLocationIds;
     if (isChecked) {
       _value = checkedLocationIds.filter((elem) => elem !== id);
@@ -309,8 +327,7 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
     setPopupVisible(false);
   };
   const handleRenderMarkersPopup = () => {
-    const { lat = '', lng = '' } =
-      clickData.length > 1 ? clickData[0] : {};
+    const { lat = '', lng = '' } = clickData.length > 1 ? clickData[0] : {};
     return (
       <Popup
         visible={popupVisible}
@@ -329,9 +346,15 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
               <div
                 key={id}
                 className="location-item"
-                onMouseDown={() => handleChangeLocationItem(id, isChecked)}
+                onMouseDown={() =>
+                  !disabled &&
+                  !readOnly &&
+                  handleChangeLocationItem(id, isChecked)
+                }
               >
-                <Checkbox checked={isChecked}>{text}</Checkbox>
+                <Checkbox checked={isChecked} disabled={disabled || readOnly}>
+                  {text}
+                </Checkbox>
               </div>
             );
           })}
@@ -342,7 +365,7 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
 
   useEffect(() => {
     setPopupVisible(false);
-    if (clickData.length === 1) {
+    if (!disabled && !readOnly && clickData.length === 1) {
       const { id } = clickData[0] || {};
       let _value = checkedLocationIds;
       if (checkedLocationIdsSet.has(id)) {
@@ -359,22 +382,22 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
     } else if (clickData.length > 1) {
       setPopupVisible(true);
     }
-  }, [clickData]);
+  }, [clickData, disabled, readOnly]);
 
   // 初始化和数据获取
   useEffect(() => {
-    const convertImagesToBase64 = async () => {
-      try {
-        const base64Img1 = await urlToBase64(img1);
-        const base64Img1h = await urlToBase64(img1h);
-        console.log('图片base64格式:', base64Img1, base64Img1h);
-        setIcons([base64Img1, base64Img1h]);
-      } catch (error) {
-        console.error('转换图片为base64失败:', error);
-      }
-    };
+    // const convertImagesToBase64 = async () => {
+    //   try {
+    //     const base64Img1 = await urlToBase64(img1);
+    //     const base64Img1h = await urlToBase64(img1h);
+    //     console.log('图片base64格式:', base64Img1, base64Img1h);
+    //     setIcons([base64Img1, base64Img1h]);
+    //   } catch (error) {
+    //     console.error('转换图片为base64失败:', error);
+    //   }
+    // };
 
-    convertImagesToBase64();
+    // convertImagesToBase64();
 
     // 获取点位数据
     fetchLocationData();
@@ -401,8 +424,7 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
       lat: parseFloat(String(item.lat)),
       lng: parseFloat(String(item.lng)),
       text: item.text,
-      // 直接传递icon的属性，而不是完整的L.icon对象
-      icon: checkedLocationIds.includes(item.id) ? icons[1] : icons[0],
+      icon: checkedLocationIds.includes(item.id) ? img1h : img1,
     }));
   }, [markerData, checkedLocationIds]);
 
@@ -413,21 +435,24 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
       zIndex: 102,
       checkedIds: checkedLocationIds,
       onChangeClickData: (event: any, data: any) => {
-        setClickData(data);
+        if (!disabled) {
+          setClickData(data);
+        }
       },
     };
-  }, [massData, checkedLocationIds]);
+  }, [massData, checkedLocationIds, disabled]);
 
   return (
     <div
       style={{ width, height }}
       className={classNames('map-container-wrapper', className)}
     >
-      {/* @ts-expect-error 忽略类型错误 */}
       <BaseMap {...mapProps}>
         <TileLayer {...tileLayerProps} />
         <MassMarker {...massMarkerProps} />
-        <DrawComponent type="default" onChange={handleDrawChange} />
+        {!disabled && !readOnly ? (
+          <DrawComponent type={drawType} onChange={handleDrawChange} />
+        ) : ''}
         {handleRenderMarkersPopup()}
       </BaseMap>
       {isLoading ? <div className="map-loading">加载中...</div> : null}

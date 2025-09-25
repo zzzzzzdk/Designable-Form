@@ -80,9 +80,10 @@ export const createFieldSchema = (
   options?: {
     includeDefault?: boolean;
     includeEnum?: boolean;
+    includeValidator?: boolean;
   }
 ): ISchema => {
-  const { includeDefault = false, includeEnum = false } = options || {};
+  const { includeDefault = false, includeEnum = false, includeValidator = false } = options || {};
   
   const fieldGroupProperties: any = {
     name: {
@@ -140,10 +141,13 @@ export const createFieldSchema = (
     'x-component': ReactionsSetter,
   };
 
-  fieldGroupProperties['x-validator'] = {
-    type: 'array',
-    'x-component': ValidatorSetter,
-  };
+  // 仅当includeValidator为true时添加校验规则配置
+  if (includeValidator) {
+    fieldGroupProperties['x-validator'] = {
+      type: 'array',
+      'x-component': ValidatorSetter,
+    };
+  }
 
   fieldGroupProperties.required = {
     type: 'boolean',

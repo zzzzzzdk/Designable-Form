@@ -40,6 +40,10 @@ export interface VehicleModelProps {
    */
   disabled?: boolean;
   /**
+   * 是否只读
+   */
+  readOnly?: boolean;
+  /**
    * 默认文字
    */
   placeholder?: string;
