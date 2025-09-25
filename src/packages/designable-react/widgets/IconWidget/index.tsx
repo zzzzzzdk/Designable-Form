@@ -140,19 +140,30 @@ export const IconWidget: React.FC<IIconWidgetProps> & {
 });
 
 IconWidget.ShadowSVG = (props) => {
-  // const ref = useRef<HTMLDivElement>()
-  // const width = isNumSize(props.width) ? `${props.width}px` : props.width
-  // const height = isNumSize(props.height) ? `${props.height}px` : props.height
-  // useEffect(() => {
-  //     if (ref.current) {
-  //         debugger
-  //         const root = ref.current.attachShadow({
-  //             mode: 'open',
-  //         })
-  //         root.innerHTML = `<svg viewBox="0 0 1024 1024" style="width:${width};height:${height}">${props.content}</svg>`
-  //     }
-  // }, [])
-  return <div></div>;
+  const ref = React.useRef<HTMLDivElement>(null);
+  const isNumSize = (val: any) => /^[\d.]+$/.test(val);
+  const width = isNumSize(props.width) ? `${props.width}px` : props.width;
+  const height = isNumSize(props.height) ? `${props.height}px` : props.height;
+  React.useEffect(() => {
+    if (ref.current && props.content) {
+      // 检查并清除已存在的shadow root
+      if (ref.current.shadowRoot) {
+        while (ref.current.shadowRoot.firstChild) {
+          ref.current.shadowRoot.removeChild(ref.current.shadowRoot.firstChild);
+        }
+      } else {
+        // 如果没有shadow root，则创建一个新的
+        ref.current.attachShadow({
+          mode: 'open',
+        });
+      }
+      // 在已有的或新创建的shadow root中设置内容
+      if (ref.current.shadowRoot) {
+        ref.current.shadowRoot.innerHTML = `<svg viewBox="0 0 1024 1024" style="width:${width};height:${height}">${props.content}</svg>`;
+      }
+    }
+  }, [props.content, width, height]);
+  return <div ref={ref}></div>;
 };
 
 IconWidget.Provider = (props) => {

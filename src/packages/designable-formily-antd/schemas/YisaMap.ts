@@ -84,6 +84,7 @@ export const YisaMap: ISchema = {
       'x-component': 'Input',
       'x-component-props': {
         placeholder: '请输入点位数据接口地址',
+        defaultValue: 'http://localhost:3002/api/pdm/v1/common/location?needType=1',
       },
     },
     requestHeaders: {

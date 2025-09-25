@@ -19,7 +19,7 @@ export const genEmptyWidgetStyle = (
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: `#fff`,
+      background: `var(--dn-composite-panel-tabs-content-bg-color)`,
       [`.animations`]: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -28,7 +28,7 @@ export const genEmptyWidgetStyle = (
       [`.hotkeys-list`]: {
         textAlign: 'center',
         lineHeight: '30px',
-        color: '#888',
+        color: 'var(--dn-white-gray)',
       },
     },
   },

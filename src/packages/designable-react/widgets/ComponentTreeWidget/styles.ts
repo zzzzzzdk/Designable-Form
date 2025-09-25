@@ -9,6 +9,7 @@ export const genComponentTreeWidgetStyle = (
     [`.${prefixCls}`]: {
       minHeight: '100%',
       minWidth: '100%',
+      backgroundColor: 'var(--dn-composite-panel-tabs-content-bg-color)',
     },
   },
 ];
