@@ -161,10 +161,7 @@ function App() {
   };
 
   return (
-    <ConfigProvider
-      theme={useTheme().themeConfig}
-      locale={getLocal(GlobalRegistry.getDesignerLanguage())}
-    >
+    <ConfigProvider locale={getLocal(GlobalRegistry.getDesignerLanguage())} theme={useTheme().themeConfig}>
       <Designer engine={engine} theme={useTheme().theme}>
         <StudioPanel
           logo={<LogoWidget />}

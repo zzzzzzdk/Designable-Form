@@ -170,7 +170,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     // 清除所有可能的主题类名
     document.body.classList.remove('light', 'dark', 'blue', 'green', 'purple', 'dn-light', 'dn-dark', 'dn-blue', 'dn-green', 'dn-purple');
-    // 添加当前主题类名（不带前缀和带前缀两种形式）
+    // 添加当前主题类名
     document.body.classList.add(theme);
     document.body.classList.add(`dn-${theme}`);
   }, [theme]);
