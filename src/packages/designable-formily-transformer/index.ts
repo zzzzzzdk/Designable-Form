@@ -22,10 +22,10 @@ const createOptions = (options: ITransformerOptions): ITransformerOptions => {
 
 const findNode = (node: ITreeNode, finder?: (node: ITreeNode) => boolean) => {
   if (!node) return;
-  if (finder(node)) return node;
+  if (finder && finder(node)) return node;
   if (!node.children) return;
   for (let i = 0; i < node.children.length; i++) {
-    if (findNode(node.children[i])) return node.children[i];
+    if (findNode(node.children[i], finder)) return node.children[i];
   }
   return;
 };

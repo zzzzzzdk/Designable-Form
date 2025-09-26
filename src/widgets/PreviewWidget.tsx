@@ -27,12 +27,12 @@ import {
   FormTab,
   FormCollapse,
   ArrayTable,
-  ArrayCards,
+  ArrayCards
 } from '@formily/antd-v5';
-import { FormPlate, FormVehicleModel, ImgZoom, CheckableTag, YisaMap } from '@/packages/designable-formily-antd';
+import { MyCustom, FormPlate, FormVehicleModel, ImgZoom, CheckableTag, YisaMap, FormButton } from '@/packages/designable-formily-antd';
 import { Card, Slider, Rate, Spin, App } from 'antd';
 import { TreeNode } from '@/packages/designable-core';
-import { transformToSchema } from '@/packages/designable-formily-transformer';
+import { transformToSchema, IFormilySchema } from '@/packages/designable-formily-transformer';
 
 const Text: React.FC<{
   value?: string;
@@ -42,9 +42,9 @@ const Text: React.FC<{
   const tagName = mode === 'normal' || !mode ? 'div' : mode;
   return React.createElement(tagName, props, value || content);
 };
-
 export interface IPreviewWidgetProps {
-  tree: TreeNode;
+  tree?: TreeNode;
+  schema?: IFormilySchema;
 }
 
 // 解析 a/b/c 路径
@@ -97,11 +97,13 @@ function buildUrlWithQuery(url: string, query?: Record<string, any>) {
 export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
   const { message: messageApi } = App.useApp();
   const form = useMemo(() => createForm(), []);
-  // 使用useMemo缓存schema，只有当props.tree发生变化时才重新计算
-  const { form: formProps, schema } = useMemo(
-    () => transformToSchema(props.tree),
-    [props.tree],
-  );
+  // 使用useMemo缓存schema，优先使用传入的schema，否则从tree转换
+  const { form: formProps, schema } = useMemo(() => {
+    if (props.schema) {
+      return props.schema;
+    }
+    return props.tree ? transformToSchema(props.tree) : { schema: undefined, form: {} };
+  }, [props.tree, props.schema]);
 
   const [runtimeSchema, setRuntimeSchema] = useState();
   const [loading, setLoading] = useState(true);
@@ -245,7 +247,9 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
         FormVehicleModel,
         ImgZoom,
         CheckableTag,
-        YisaMap
+        YisaMap,
+        MyCustom,
+        FormButton
       },
     });
   }, []);

@@ -139,7 +139,7 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
     readOnly = false,
     ...otherMapProps
   } = props;
-  console.log('props:', props);
+  // console.log('props:', props);
   const [markerData, setMarkerData] = useState<any[]>([]);
   const markerDataRef = useRef<any[]>(markerData);
   markerDataRef.current = markerData;
@@ -429,7 +429,7 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
   }, [markerData, checkedLocationIds]);
 
   const massMarkerProps = useMemo(() => {
-    console.log('checkedLocationIds', checkedLocationIds);
+    // console.log('checkedLocationIds', checkedLocationIds);
     return {
       data: massData,
       zIndex: 102,

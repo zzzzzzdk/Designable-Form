@@ -23,6 +23,7 @@
     "@trionesdev/designable-shared": "^0.0.7-beta.2",
     "@turf/turf": "^7.2.0",
     "@types/leaflet": "^1.9.20",
+    "@types/react-router-dom": "^5.3.3",
     "antd": "^5.8.0",
     "cross-env": "^7.0.3",
     "jsencrypt": "^3.5.4",
@@ -34,7 +35,8 @@
     "rc-trigger": "^5.3.4",
     "rc-virtual-list": "^3.19.2",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.9.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",

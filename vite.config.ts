@@ -6,6 +6,10 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()],
   base: '/',
+  server: {
+    // 添加跨域配置，允许所有源访问
+    cors: true,
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),

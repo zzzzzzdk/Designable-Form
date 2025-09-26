@@ -5,6 +5,9 @@ import {
   Shortcut,
 } from './packages/designable-core';
 import { useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
+// 导入无界微前端相关工具和钩子
+import { useKeepAliveRouter } from './hooks/useKeepAliveRouter';
 import {
   ComponentTreeWidget,
   CompositePanel,
@@ -62,6 +65,7 @@ import {
   ImgZoom,
   CheckableTag,
   YisaMap,
+  FormButton,
 } from '@/packages/designable-formily-antd';
 import {
   SettingsForm,
@@ -83,6 +87,11 @@ import {
 setNpmCDNRegistry();
 
 function App() {
+  useKeepAliveRouter('designable-app');
+  
+  // 使用React Router的useLocation钩子获取当前路由
+  
+
   const engine = useMemo(
     () =>
       createDesigner({
@@ -158,9 +167,11 @@ function App() {
     ImgZoom,
     CheckableTag,
     YisaMap,
+    FormButton
   };
 
-  return (
+  // 定义应用渲染内容
+  const renderAppContent = () => (
     <ConfigProvider locale={getLocal(GlobalRegistry.getDesignerLanguage())} theme={useTheme().themeConfig}>
       <Designer engine={engine} theme={useTheme().theme}>
         <StudioPanel
@@ -184,6 +195,7 @@ function App() {
                   ImgZoom,
                   CheckableTag,
                   YisaMap,
+                  FormButton,
                 ]}
               />
               <ResourceWidget
@@ -288,6 +300,9 @@ function App() {
       </Designer>
     </ConfigProvider>
   );
+  
+  // 直接渲染应用内容
+  return renderAppContent();
 }
 
 export default App;

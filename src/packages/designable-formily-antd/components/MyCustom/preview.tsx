@@ -8,11 +8,11 @@ import { useField } from '@formily/react';
 
 export const MyCustom: DnFC<{ value?: string }> = (props) => {
   const field = useField();
-  console.log('MyCustom field', field);
+  // console.log('MyCustom field', field);
   // value 可能在 props.xComponentProps 或 props.value
   const xComponentProps = field['componentProps'] || {};
   const value = props.value ?? xComponentProps.value ?? '这里是自定义内容';
-  console.log('MyCustom value', value);
+  // console.log('MyCustom value', value);
   const { className, style, ...rest } = props as any;
   const selected = className?.includes('dn-selected');
   return (

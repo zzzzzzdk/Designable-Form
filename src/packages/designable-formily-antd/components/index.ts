@@ -31,3 +31,4 @@ export * from './FormVehicleModel';
 export * from './ImgZoom';
 export * from './CheckableTag';
 export * from './YisaMap';
+export * from './FormButton';

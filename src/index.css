@@ -1,3 +1,21 @@
+/* 全局样式重置 */
+/* 子应用样式隔离命名空间 */
+.sub-app {
+  /* 子应用基础样式重置 */
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  
+  /* 确保子应用内容不会溢出 */
+  overflow: hidden;
+}
+
+/* 为特定子应用添加更细粒度的样式隔离 */
+.sub-app-[id] {
+  /* 特定子应用的专用样式 */
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

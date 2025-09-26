@@ -336,7 +336,6 @@ export function Plate(props: FormPlateProps) {
   }, [JSON.stringify(value), theme]);
 
   useEffect(() => {
-    console.log('keyboard');
     function closeKeyboard(e: any) {
       // e.stopPropagation()
       let tag = true;
