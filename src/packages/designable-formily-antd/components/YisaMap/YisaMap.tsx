@@ -146,9 +146,10 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
   const [checkedLocationIds, setCheckedLocationIds] = useMergedState<string[]>(
     [],
     {
-      value: 'locationIds' in props ? formatValue(props.value) : undefined,
+      value: 'value' in props ? formatValue(props.value) : undefined,
     },
   );
+
   const checkedLocationIdsSet = new Set(checkedLocationIds);
   const [clickData, setClickData] = useState<any>([]);
   const [drawType, setDrawType] = useState<Type>('default');
@@ -282,18 +283,22 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
     }
 
     console.log('handleDrawChange', type, callbackData);
-
+    let newCheckedLocationIds = []
     if (type !== 'clear' && callbackData) {
       // 过滤在绘制区域内的点
       const filteredPoints = markerDataRef.current.filter((point) =>
         contains(callbackData, point.lat, point.lng),
       );
-      setCheckedLocationIds(filteredPoints.map((item) => item.id));
+      newCheckedLocationIds = filteredPoints.map((item) => item.id);
+      setCheckedLocationIds(newCheckedLocationIds);
     } else {
       // 清除选择
       setCheckedLocationIds([]);
     }
     // setDrawType('default')
+    if (onChange && isFunction(onChange)) {
+      onChange(newCheckedLocationIds);
+    }
   };
 
   // 处理鼠标按下事件
@@ -314,7 +319,7 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
     } else {
       _value = [..._value, id];
     }
-    if (!('locationIds' in props)) {
+    if (!('value' in props)) {
       setCheckedLocationIds(_value);
     }
 
@@ -373,7 +378,7 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
       } else {
         _value = [..._value, id];
       }
-      if (!('locationIds' in props)) {
+      if (!('value' in props)) {
         setCheckedLocationIds(_value);
       }
       if (onChange && isFunction(onChange)) {
@@ -452,7 +457,9 @@ const YisaMap: React.FC<YisaMapProps> = (props) => {
         <MassMarker {...massMarkerProps} />
         {!disabled && !readOnly ? (
           <DrawComponent type={drawType} onChange={handleDrawChange} />
-        ) : ''}
+        ) : (
+          ''
+        )}
         {handleRenderMarkersPopup()}
       </BaseMap>
       {isLoading ? <div className="map-loading">加载中...</div> : null}

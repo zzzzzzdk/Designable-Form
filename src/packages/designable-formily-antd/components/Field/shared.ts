@@ -217,15 +217,15 @@ export const createVoidFieldSchema = (
               defaultValue: 'visible',
             },
           },
-          'x-pattern': {
-            type: 'string',
-            enum: ['editable', 'disabled', 'readOnly', 'readPretty', ''],
-            'x-decorator': 'FormItem',
-            'x-component': 'Select',
-            'x-component-props': {
-              defaultValue: 'editable',
-            },
-          },
+          // 'x-pattern': {
+          //   type: 'string',
+          //   enum: ['editable', 'disabled', 'readOnly', 'readPretty', ''],
+          //   'x-decorator': 'FormItem',
+          //   'x-component': 'Select',
+          //   'x-component-props': {
+          //     defaultValue: 'editable',
+          //   },
+          // },
           'x-reactions': {
             'x-decorator': 'FormItem',
             'x-component': ReactionsSetter,

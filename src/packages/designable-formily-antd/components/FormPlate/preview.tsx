@@ -22,7 +22,7 @@ FormPlate.Behavior = createBehavior({
 
 // 为FormPlate组件添加Resource
 FormPlate.Resource = createResource({
-  icon: <div>车牌组件</div>,
+  icon: 'LicensePlate',
   elements: [
     {
       componentName: 'Field',

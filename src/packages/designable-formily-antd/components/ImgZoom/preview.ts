@@ -34,7 +34,7 @@ ImgZoom.Behavior = createBehavior({
 
 // 定义组件资源
 ImgZoom.Resource = createResource({
-  icon: "Component",
+  icon: "ImageZoom",
   elements: [
     {
       componentName: 'Field',

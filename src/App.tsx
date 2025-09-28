@@ -189,7 +189,7 @@ function App() {
               <ResourceWidget
                 title="业务组件"
                 sources={[
-                  MyCustom,
+                  // MyCustom,
                   FormPlate,
                   FormVehicleModel,
                   ImgZoom,
@@ -219,7 +219,7 @@ function App() {
                   Upload,
                   Switch,
                   ObjectContainer,
-                  MyCustom,
+                  // MyCustom,
                 ]}
               />
               <ResourceWidget

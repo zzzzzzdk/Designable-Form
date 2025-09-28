@@ -1,6 +1,33 @@
 export const FormButton: ISchema = {
   type: 'object',
   properties: {
+    buttonType: {
+      type: 'string',
+      title: '按钮类型',
+      'x-decorator': 'FormItem',
+      'x-component': 'Select',
+      'x-component-props': {
+        defaultValue: 'submit',
+      },
+      enum: ['submit', 'cancel', 'reset'],
+    },
+    returnUrl: {
+      type: 'string',
+      title: '返回地址',
+      'x-decorator': 'FormItem',
+      'x-component': 'Input',
+      'x-component-props': {
+        placeholder: '请输入返回地址',
+      },
+      'x-reactions': {
+        dependencies: ['.buttonType'],
+        fulfill: {
+          state: {
+            visible: '{{$deps[0] === "cancel"}}',
+          },
+        },
+      },
+    },
     submitUrl: {
       type: 'string',
       title: '提交URL',
@@ -8,6 +35,14 @@ export const FormButton: ISchema = {
       'x-component': 'Input',
       'x-component-props': {
         placeholder: '请输入提交地址',
+      },
+      'x-reactions': {
+        dependencies: ['.buttonType'],
+        fulfill: {
+          state: {
+            visible: '{{$deps[0] === "submit"}}',
+          },
+        },
       },
     },
     type: {
@@ -55,6 +90,16 @@ export const FormButton: ISchema = {
     disabled: {
       type: 'boolean',
       title: '禁用状态',
+      'x-decorator': 'FormItem',
+      'x-component': 'Switch',
+      'x-component-props': {
+        defaultChecked: false,
+      },
+    },
+    
+    readOnly: {
+      type: 'boolean',
+      title: '只读状态',
       'x-decorator': 'FormItem',
       'x-component': 'Switch',
       'x-component-props': {

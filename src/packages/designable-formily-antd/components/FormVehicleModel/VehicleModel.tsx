@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import {
   VehicleModelProps,
   brandProps,
@@ -33,7 +33,6 @@ function VehicleModel(props: VehicleModelProps) {
     styleFun: genFormVehicleModelStyle,
   });
 
- 
   const {
     className,
     style,
@@ -49,14 +48,12 @@ function VehicleModel(props: VehicleModelProps) {
     brandData: propsBrandData,
     modelData,
     yearData,
-    brandValue: propsBrandValue,
-    modelValue: propsModelValue,
-    yearValue: propsYearValue,
+    value,
     notFoundContent,
     mode,
     error,
     size,
-    allowClear,
+    allowClear = true,
     clearIcon,
     arrowIcon,
     loading,
@@ -68,10 +65,13 @@ function VehicleModel(props: VehicleModelProps) {
     onChange,
     getTargetContainer,
     // 使用最近的vehicle-model-wrapper作为容器来确保正确的定位
-    getTriggerContainer = () => document.querySelector(`.vehicle-model-wrapper.${hashId}`) || document.body,
+    getTriggerContainer = () =>
+      document.querySelector(`.vehicle-model-wrapper.${hashId}`) ||
+      document.body,
     maxHeight = 540,
     destroyPopupOnHide = true,
   } = props;
+  // console.log(props);
 
   // const leftText = ["热门", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
   const leftText = [
@@ -111,14 +111,49 @@ function VehicleModel(props: VehicleModelProps) {
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [stateBrandValue, setStateBrandValue] = useState(propsBrandValue);
-  const brandValue = 'brandValue' in props ? propsBrandValue : stateBrandValue;
-  const [stateModelValue, setStateModelValue] = useState(propsModelValue);
-  const modelValue = 'modelValue' in props ? propsModelValue : stateModelValue;
-  const [stateYearValue, setStateYearValue] = useState(propsYearValue);
-  const yearValue = 'yearValue' in props ? propsYearValue : stateYearValue;
-  const isEmpty = 
-    !brandValue || (isMultiple && isArray(brandValue) && !brandValue.length);
+
+  // 从value prop中提取brandValue、modelValue和yearValue（如果提供）
+  const [stateBrandValue, setStateBrandValue] = useState(() => {
+    if (value && typeof value === 'object') {
+      return value.brandValue || [];
+    }
+    return [];
+  });
+
+  const [stateModelValue, setStateModelValue] = useState(() => {
+    if (value && typeof value === 'object') {
+      return value.modelValue || [];
+    }
+    return [];
+  });
+
+  const [stateYearValue, setStateYearValue] = useState(() => {
+    if (value && typeof value === 'object') {
+      return value.yearValue || [];
+    }
+    return [];
+  });
+
+  // 优先使用props中的独立值，其次是value中的值，最后是state中的值
+  const brandValue =
+    value && typeof value === 'object' ? value.brandValue : stateBrandValue;
+  const modelValue =
+    value && typeof value === 'object' ? value.modelValue : stateModelValue;
+  const yearValue =
+    value && typeof value === 'object' ? value.yearValue : stateYearValue;
+  const isEmpty = !brandValue || (isArray(brandValue) && !brandValue.length);
+
+  useEffect(() => {
+    if (value && typeof value === 'object') {
+      setStateBrandValue(value.brandValue || []);
+      setStateModelValue(value.modelValue || []);
+      setStateYearValue(value.yearValue || []);
+    } else {
+      setStateBrandValue([]);
+      setStateModelValue([]);
+      setStateYearValue([]);
+    }
+  }, [value]);
 
   const brandData: { [key: value]: brandProps } = useMemo(() => {
     let _brands = {};
@@ -212,17 +247,22 @@ function VehicleModel(props: VehicleModelProps) {
     modelValue: value[],
     yearValue: value[],
   ) => {
-    setStateBrandValue(brandValue);
-    setStateModelValue(modelValue);
-    setStateYearValue(yearValue);
+    setStateBrandValue(brandValue || []);
+    setStateModelValue(modelValue || []);
+    setStateYearValue(yearValue || []);
     const brands = handleGetBrandByValue(brandValue);
     const models = handleGetModelByValue(brandValue, modelValue);
     const years = handleGetYearByValue(modelValue, yearValue);
     if (onChange) {
-      onChange(brandValue, modelValue, yearValue, {
-        brandData: brands,
-        modelData: models,
-        yearData: years,
+      onChange({
+        brandValue: brandValue || [],
+        modelValue: modelValue || [],
+        yearValue: yearValue || [],
+        extra: {
+          brandData: brands,
+          modelData: models,
+          yearData: years,
+        },
       });
     }
   };
@@ -302,6 +342,7 @@ function VehicleModel(props: VehicleModelProps) {
     }
     return texts.filter(Boolean).join(` ${separator} `);
   };
+  // TODO: 按钮禁用不管用；
 
   const viewStopPropagation = (e: any) => {
     visible && e.stopPropagation();
@@ -402,7 +443,8 @@ function VehicleModel(props: VehicleModelProps) {
             [`${prefixCls}-single`]: !isMultiple,
             [`${prefixCls}-open`]: visible,
             [`${prefixCls}-size-${size}`]: size,
-            [`${prefixCls}-hover`]: !(disabled || readOnly) && !error && hovered,
+            [`${prefixCls}-hover`]:
+              !(disabled || readOnly) && !error && hovered,
             [`${prefixCls}-focused`]: visible || focused,
             [`${prefixCls}-error`]: !!error,
             [`${prefixCls}-disabled`]: disabled || readOnly,
@@ -434,9 +476,13 @@ function VehicleModel(props: VehicleModelProps) {
   const handleRenderTriggerContent = () => {
     return (
       <div
-        className={classNames(`${prefixCls}-wrapper`, {
-          [`${wrapperClassName}`]: wrapperClassName,
-        }, hashId)}
+        className={classNames(
+          `${prefixCls}-wrapper`,
+          {
+            [`${wrapperClassName}`]: wrapperClassName,
+          },
+          hashId,
+        )}
         style={wrapperStyle}
       >
         <VehicleModelContext.Provider value={vehicleModelContextValue}>
@@ -484,8 +530,14 @@ function VehicleModel(props: VehicleModelProps) {
     }
     const handleDocMouseDown = (e: any) => {
       const target = e.target as HTMLElement;
-      const inContent = contains(contentRef.current as HTMLElement, target as HTMLElement);
-      const inPopup = contains(popupRef.current as HTMLElement, target as HTMLElement);
+      const inContent = contains(
+        contentRef.current as HTMLElement,
+        target as HTMLElement,
+      );
+      const inPopup = contains(
+        popupRef.current as HTMLElement,
+        target as HTMLElement,
+      );
       if (!inContent && !inPopup) {
         handleChangeVisible(false);
       }
@@ -496,20 +548,26 @@ function VehicleModel(props: VehicleModelProps) {
     };
   }, [visible, getTargetContainer]);
 
-
   const handleGetPortalPosition = (): any => {
     if (!getTargetContainer) return { top: 0, left: 0 };
-    
+
     try {
       // 获取触发元素(select框)的位置信息
       const triggerRect = contentRef.current?.getBoundingClientRect() || {};
       // 获取容器元素的位置信息
-      const containerRect = getTriggerContainer()?.getBoundingClientRect() || {};
-      
+      const containerRect =
+        getTriggerContainer()?.getBoundingClientRect() || {};
+
       // 确保所有必要的位置属性都存在
-      const hasValidTriggerRect = triggerRect && typeof triggerRect.top === 'number' && typeof triggerRect.left === 'number';
-      const hasValidContainerRect = containerRect && typeof containerRect.top === 'number' && typeof containerRect.left === 'number';
-      
+      const hasValidTriggerRect =
+        triggerRect &&
+        typeof triggerRect.top === 'number' &&
+        typeof triggerRect.left === 'number';
+      const hasValidContainerRect =
+        containerRect &&
+        typeof containerRect.top === 'number' &&
+        typeof containerRect.left === 'number';
+
       if (hasValidTriggerRect && hasValidContainerRect) {
         // 计算相对于容器的位置
         // 定位在触发元素的下方左侧对齐
@@ -518,9 +576,11 @@ function VehicleModel(props: VehicleModelProps) {
           left: triggerRect.left - containerRect.left,
         };
       }
-      
+
       // 如果没有有效的位置信息，默认返回合理的位置
-      console.warn('Invalid position data for vehicle model portal, using fallback position');
+      console.warn(
+        'Invalid position data for vehicle model portal, using fallback position',
+      );
       return { top: 0, left: 0 };
     } catch (error) {
       console.error('Error calculating portal position:', error);
@@ -564,7 +624,7 @@ function VehicleModel(props: VehicleModelProps) {
         <div>contentRef.current: {contentRef.current ? 'exists' : 'null'}</div>
         <div>prefixCls: {prefixCls}</div>
       </div> */}
-      
+
       <Trigger
         prefixCls={`${prefixCls}-trigger`}
         // Scheme B: disable rc-trigger built-in actions; we control visibility
@@ -578,7 +638,11 @@ function VehicleModel(props: VehicleModelProps) {
           offset: [0, 2],
           overflow: { adjustX: 1, adjustY: 1 },
         }}
-        popup={<div ref={popupRef} className={hashId}>{handleRenderTriggerContent()}</div>}
+        popup={
+          <div ref={popupRef} className={hashId}>
+            {handleRenderTriggerContent()}
+          </div>
+        }
         popupVisible={visible}
         stretch=""
         getTriggerDOMNode={() => contentRef.current!}

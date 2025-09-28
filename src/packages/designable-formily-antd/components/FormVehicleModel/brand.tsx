@@ -9,7 +9,8 @@ import VirtualList from 'rc-virtual-list'
 type itemData = {
   v?: string,
   k?: string,
-  isLetter?: Boolean,
+  isLetter?: boolean,
+  isHot?: boolean,
 }
 
 function Brand(props: brandListProps) {
@@ -52,7 +53,7 @@ function Brand(props: brandListProps) {
     data.forEach(elem => {
       const [key, item] = elem
       const { nodes = [] } = item
-      const filterNodes = nodes.filter(elem => `${elem?.v}`.toLowerCase().includes(filterText.toLowerCase()))
+      const filterNodes = nodes.filter(o => `${o?.v}`.toLowerCase().includes(filterText.toLowerCase()))
       letterData.push({
         v: key,
         k: key
@@ -68,7 +69,8 @@ function Brand(props: brandListProps) {
           allData.push({
             v,
             k,
-            isLetter: false
+            isLetter: false,
+            isHot: item.v === '热门'
           })
         })
       }
@@ -164,7 +166,6 @@ function Brand(props: brandListProps) {
       </VirtualList>
     </div>
   }
-
   const handleRenderBrand = () => {
     return <div className={`${prefixCls}-column`}>
       <div className={`${prefixCls}-search`}>
@@ -179,8 +180,8 @@ function Brand(props: brandListProps) {
         <VirtualList
           data={allData}
           height={(maxHeight || 540) - 30}
-          itemHeight={(elem) => elem.isLetter ? 36 : 40}
-          itemKey={(elem, index) => `${elem.k}_${index}`}
+          itemHeight={36}
+          itemKey={(elem) => `${elem.k}_${elem.v}_${elem.isHot}`}
           onScroll={(e) => {
             if (activeLetter) {
               handleScrollBrand({ scrollTop: e.scrollTop })

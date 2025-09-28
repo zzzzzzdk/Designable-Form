@@ -34,7 +34,7 @@ YisaMap.Behavior = createBehavior({
 
 // 定义组件资源
 YisaMap.Resource = createResource({
-  icon: "Component",
+  icon: "MapPoint",
   elements: [
     {
       componentName: 'Field',

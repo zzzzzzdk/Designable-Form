@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode } from 'react'
+import { CSSProperties, ReactNode } from 'react';
 
 export interface brandProps {
   v: string;
@@ -51,7 +51,11 @@ export interface VehicleModelProps {
   /**
    * 定制显示内容
    */
-  renderFormat?: (brand: brandProps | brandProps[] | undefined, model: modelProps[] | undefined, year: yearProps[] | undefined) => ReactNode
+  renderFormat?: (
+    brand: brandProps | brandProps[] | undefined,
+    model: modelProps[] | undefined,
+    year: yearProps[] | undefined,
+  ) => ReactNode;
   /**
    * 热门品牌
    */
@@ -86,6 +90,14 @@ export interface VehicleModelProps {
    */
   yearValue?: value[];
   /**
+   * 默认值
+   */
+  value: {
+    brandValue: value | value[];
+    modelValue: value[];
+    yearValue: value[];
+  };
+  /**
    * 无数据显示的内容
    */
   notFoundContent?: ReactNode;
@@ -96,7 +108,7 @@ export interface VehicleModelProps {
   /**
    * 尺寸
    */
-  size?: 'mini' | 'small' | 'default' | 'large'
+  size?: 'mini' | 'small' | 'default' | 'large';
   /**
    * 错误状态
    */
@@ -138,25 +150,24 @@ export interface VehicleModelProps {
   maxHeight?: number;
   destroyPopupOnHide?: boolean;
   /**
-  * 获取焦点回调
-  */
+   * 获取焦点回调
+   */
   onFocus?: (e: any) => void;
   /**
    * 失去焦点回调
    */
   onBlur?: (e: any) => void;
-  onChange?: (
-    brandValue: value | value[] | undefined,
-    modelValue: value[],
-    yearValue: value[],
-    extra: {
-      brandData: brandProps | brandProps[] | undefined,
-      modelData: modelProps[],
-      yearData: yearProps[]
-    }
-  ) => void;
+  onChange?: (data: {
+    brandValue: value | value[] | undefined;
+    modelValue: value[];
+    yearValue: value[];
+    extra?: {
+      brandData: brandProps | brandProps[] | undefined;
+      modelData: modelProps[];
+      yearData: yearProps[];
+    };
+  }) => void;
 }
-
 
 export interface brandListProps {
   isMultiple?: boolean;

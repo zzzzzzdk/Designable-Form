@@ -41,7 +41,7 @@ CheckableTag.Behavior = createBehavior({
 
 // 定义组件资源
 CheckableTag.Resource = createResource({
-  icon: 'Component',
+  icon: 'TagSelect',
   elements: [
     {
       componentName: 'Field',
