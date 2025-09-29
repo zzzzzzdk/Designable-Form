@@ -47,8 +47,8 @@ export default function PreviewWidgetPage() {
               if (!response.ok) {
                 throw new Error(`请求失败: ${response.status}`);
               }
-              const schema = await response.json() as IFormilySchema;
-              setSchemaData(schema);
+              const schema = await response.json();
+              setSchemaData(schema.data);
               return;
             } catch (error) {
               console.error('通过查询接口获取数据失败:', error);

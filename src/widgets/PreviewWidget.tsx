@@ -27,12 +27,23 @@ import {
   FormTab,
   FormCollapse,
   ArrayTable,
-  ArrayCards
+  ArrayCards,
 } from '@formily/antd-v5';
-import { MyCustom, FormPlate, FormVehicleModel, ImgZoom, CheckableTag, YisaMap, FormButton } from '@/packages/designable-formily-antd';
+import {
+  MyCustom,
+  FormPlate,
+  FormVehicleModel,
+  ImgZoom,
+  CheckableTag,
+  YisaMap,
+  FormButton,
+} from '@/packages/designable-formily-antd';
 import { Card, Slider, Rate, Spin, App } from 'antd';
 import { TreeNode } from '@/packages/designable-core';
-import { transformToSchema, IFormilySchema } from '@/packages/designable-formily-transformer';
+import {
+  transformToSchema,
+  IFormilySchema,
+} from '@/packages/designable-formily-transformer';
 
 const Text: React.FC<{
   value?: string;
@@ -67,13 +78,16 @@ function mapToEnum(
   return list.map((item, index) => {
     // 确保 value 不为 undefined，如果为 undefined 则使用索引或空字符串作为默认值
     const itemValue = item?.[valueKey];
-    const safeValue = itemValue !== undefined && itemValue !== null ? itemValue : (index.toString());
-    
-    const mapped: any = { 
-      label: item?.[labelKey] || `选项${index + 1}`, 
-      value: safeValue 
+    const safeValue =
+      itemValue !== undefined && itemValue !== null
+        ? itemValue
+        : index.toString();
+
+    const mapped: any = {
+      label: item?.[labelKey] || `选项${index + 1}`,
+      value: safeValue,
     };
-    
+
     const children = childrenKey ? item?.[childrenKey] : undefined;
     if (children && Array.isArray(children)) {
       mapped.children = mapToEnum(children, labelKey, valueKey, childrenKey);
@@ -102,7 +116,9 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
     if (props.schema) {
       return props.schema;
     }
-    return props.tree ? transformToSchema(props.tree) : { schema: undefined, form: {} };
+    return props.tree
+      ? transformToSchema(props.tree)
+      : { schema: undefined, form: {} };
   }, [props.tree, props.schema]);
 
   const [runtimeSchema, setRuntimeSchema] = useState();
@@ -110,10 +126,9 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
 
   useEffect(() => {
     let aborted = false;
-    const cloned = JSON.parse(JSON.stringify(schema));
+    const cloned = JSON.parse(JSON.stringify(schema || {}));
     const fetchTasks: Promise<void>[] = [];
 
-    console.time('schema');
     // console.log('PreviewWidget useEffect executed, schema:', JSON.stringify(schema));
     const traverse = (node: any) => {
       if (!node || typeof node !== 'object') return;
@@ -187,9 +202,6 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
     };
     traverse(cloned);
 
-    console.timeEnd('schema');
-    console.log(cloned);
-
     if (fetchTasks.length > 0) {
       setLoading(true);
       Promise.all(fetchTasks).finally(() => {
@@ -249,7 +261,7 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
         CheckableTag,
         YisaMap,
         MyCustom,
-        FormButton
+        FormButton,
       },
     });
   }, []);

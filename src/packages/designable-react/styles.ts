@@ -7,6 +7,8 @@ export const genAppStyle = (
 ): CSSInterpolation => [
   {
     [`.dn-app`]: {
+      width: '100%',
+      height: '100%',
       [`::-webkit-scrollbar`]: {
         width: '5px',
         height: '5px',
