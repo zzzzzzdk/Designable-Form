@@ -15,7 +15,6 @@ FormButton.Behavior = createBehavior({
   extends: ['Field'],
   selector: (node) => node.props?.['x-component'] === 'FormButton',
   designerProps: {
-    droppable: true,
     propsSchema: createVoidFieldSchema(AllSchemas.FormButton),
   },
   designerLocales: AllLocales.FormButton,

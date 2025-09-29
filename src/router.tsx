@@ -1,6 +1,6 @@
-import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import App from './App';
 import PreviewWidgetPage from '@/pages/PreviewWidgetPage';
+import { createHashRouter, RouteObject } from 'react-router-dom';
 
 /**
  * 应用路由配置
@@ -19,7 +19,7 @@ export const routes: RouteObject[] = [
 /**
  * 创建路由实例
  */
-export const router = createBrowserRouter(routes, {
+export const router = createHashRouter(routes, {
   basename: '/',
   future: {
     v7_startTransition: true,

@@ -23,7 +23,6 @@ export default function FormButton(props: {
   buttonType?: 'submit' | 'cancel' | 'reset';
   children?: React.ReactNode | string;
 }) {
-  console.log('FormButton props:', props);
   const workbench = useWorkbench();
   const prefixCls = usePrefix('form-button');
   const { hashId, wrapSSR } = useCssInJs({
@@ -33,8 +32,6 @@ export default function FormButton(props: {
 
   const field = useField();
   const xComponentProps = field['componentProps'] || {};
-  console.log('FormButton xComponentProps:', xComponentProps);
-  console.log('FormButton workbench type:', workbench.type);
 
   // 合并props和xComponentProps，但让外部传入的props.disabled优先级更高
   // 这样当从外部传入disabled属性时，它不会被xComponentProps覆盖
@@ -52,16 +49,13 @@ export default function FormButton(props: {
       (props.buttonType === 'cancel' ? '取消' : '提交表单'),
   };
   
-  console.log('FormButton mergedProps:', mergedProps);
 
   // 移除在Submit组件中不需要的props
   const { className, style, submitUrl, onClick, center, returnUrl, buttonType, ...submitProps } = mergedProps;
-  console.log('FormButton submitProps:', submitProps);
 
   // 处理按钮点击或提交事件
   const handleSubmit = async (values: any) => {
     // 如果按钮被禁用或处于只读状态，则不执行任何操作
-    console.log('FormButton handleSubmit - disabled:', submitProps.disabled, 'readOnly:', submitProps.readOnly);
     if (submitProps.disabled || submitProps.readOnly) {
       return;
     }

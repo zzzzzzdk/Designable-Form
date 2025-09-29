@@ -88,9 +88,8 @@ setNpmCDNRegistry();
 
 function App() {
   useKeepAliveRouter('designable-app');
-  
+
   // 使用React Router的useLocation钩子获取当前路由
-  
 
   const engine = useMemo(
     () =>
@@ -167,12 +166,15 @@ function App() {
     ImgZoom,
     CheckableTag,
     YisaMap,
-    FormButton
+    FormButton,
   };
 
   // 定义应用渲染内容
   const renderAppContent = () => (
-    <ConfigProvider locale={getLocal(GlobalRegistry.getDesignerLanguage())} theme={useTheme().themeConfig}>
+    <ConfigProvider
+      locale={getLocal(GlobalRegistry.getDesignerLanguage())}
+      theme={useTheme().themeConfig}
+    >
       <Designer engine={engine} theme={useTheme().theme}>
         <StudioPanel
           logo={<LogoWidget />}
@@ -186,18 +188,6 @@ function App() {
         >
           <CompositePanel>
             <CompositePanel.Item title="panels.Component" icon="Component">
-              <ResourceWidget
-                title="业务组件"
-                sources={[
-                  // MyCustom,
-                  FormPlate,
-                  FormVehicleModel,
-                  ImgZoom,
-                  CheckableTag,
-                  YisaMap,
-                  FormButton,
-                ]}
-              />
               <ResourceWidget
                 title="输入控件"
                 sources={[
@@ -231,6 +221,18 @@ function App() {
                   FormLayout,
                   FormCollapse,
                   Space,
+                ]}
+              />
+              <ResourceWidget
+                title="业务组件"
+                sources={[
+                  // MyCustom,
+                  FormPlate,
+                  FormVehicleModel,
+                  ImgZoom,
+                  CheckableTag,
+                  YisaMap,
+                  FormButton,
                 ]}
               />
               <ResourceWidget
@@ -300,7 +302,7 @@ function App() {
       </Designer>
     </ConfigProvider>
   );
-  
+
   // 直接渲染应用内容
   return renderAppContent();
 }
