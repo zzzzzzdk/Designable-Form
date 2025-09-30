@@ -31,23 +31,25 @@ export interface IReactionsSetterProps {
 
 const TypeView = ({ value }) => {
   const text = String(value);
-  if (text.length <= 26) return <Tag>{text}</Tag>;
+  if (text.length <= 26) return <span><Tag>{text}</Tag></span>;
   return (
-    <Tag>
-      <Tooltip
-        title={
-          <div style={{ fontSize: 12 }}>
-            <code>
-              <pre style={{ whiteSpace: 'pre-wrap', padding: 0, margin: 0 }}>
-                {text}
-              </pre>
-            </code>
-          </div>
-        }
-      >
-        {text.substring(0, 24)}...
-      </Tooltip>
-    </Tag>
+    <span>
+      <Tag>
+        <Tooltip
+          title={
+            <span style={{ fontSize: 12 }}>
+              <code>
+                <span style={{ whiteSpace: 'pre-wrap', display: 'block' }}>
+                  {text}
+                </span>
+              </code>
+            </span>
+          }
+        >
+          {text.substring(0, 24)}...
+        </Tooltip>
+      </Tag>
+    </span>
   );
 };
 

@@ -36,6 +36,9 @@ NumberPicker.Resource = createResource({
         title: 'NumberPicker',
         'x-decorator': 'FormItem',
         'x-component': 'NumberPicker',
+        'x-component-props': {
+          placeholder: '请输入数字',
+        },
       },
     },
   ],

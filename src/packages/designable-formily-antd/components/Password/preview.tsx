@@ -28,6 +28,9 @@ Password.Resource = createResource({
         title: 'Password',
         'x-decorator': 'FormItem',
         'x-component': 'Password',
+        'x-component-props': {
+          placeholder: '请输入密码',
+        },
       },
     },
   ],

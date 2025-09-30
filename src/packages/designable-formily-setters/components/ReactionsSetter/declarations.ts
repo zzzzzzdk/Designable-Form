@@ -1,7 +1,6 @@
-import {
-  MonacoInput,
-  getNpmCDNRegistry,
-} from '@/packages/designable-react-settings-form';
+import { MonacoInput } from '@/packages/designable-react-settings-form';
+// 使用Vite的静态导入功能获取@formily/core的类型声明文件
+import formilyCoreTypes from '@formily/core/dist/formily.core.all.d.ts?raw';
 
 export interface IDependency {
   name: string;
@@ -9,15 +8,24 @@ export interface IDependency {
 }
 
 const loadDependencies = async (deps: IDependency[]) => {
-  return Promise.all(
-    deps.map(async ({ name, path }) => ({
+  // 直接返回预加载的静态类型声明，不再从CDN获取
+  return deps.map(({ name, path }) => {
+    // 根据依赖名称匹配对应的静态类型声明
+    if (name === '@formily/core' && path === 'dist/formily.core.all.d.ts') {
+      return {
+        name,
+        path,
+        library: formilyCoreTypes,
+      };
+    }
+    // 对于其他依赖，提供空的类型声明
+    console.warn(`No local type declaration found for: ${name}/${path}`);
+    return {
       name,
       path,
-      library: await fetch(`${getNpmCDNRegistry()}/${name}/${path}`).then(
-        (res) => res.text(),
-      ),
-    })),
-  );
+      library: '',
+    };
+  });
 };
 
 export const initDeclaration = async () => {

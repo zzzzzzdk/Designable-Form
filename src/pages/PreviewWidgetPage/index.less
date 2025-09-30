@@ -25,12 +25,23 @@
   padding: 24px;
   box-sizing: border-box;
   background-color: #f9fafb;
-  background-image: 
+  background-image:
     radial-gradient(#e5e7eb 1px, transparent 1px),
     radial-gradient(#e5e7eb 1px, transparent 1px);
   background-size: 40px 40px;
-  background-position: 0 0, 20px 20px;
+  background-position:
+    0 0,
+    20px 20px;
   transition: background-color 0.3s ease;
+
+  .ant-spin-nested-loading,
+  .ant-spin {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 /* 容器样式 */
@@ -67,7 +78,7 @@
   margin-bottom: 24px;
   padding-bottom: 16px;
   border-bottom: 1px solid @border-color;
-  
+
   &-title {
     font-size: 24px;
     font-weight: 600;
@@ -76,7 +87,7 @@
     line-height: 1.4;
     letter-spacing: -0.025em;
   }
-  
+
   &-description {
     font-size: 14px;
     color: @text-color-secondary;
@@ -95,7 +106,7 @@
   margin-bottom: 24px;
   position: relative;
   border: 1px solid transparent;
-  
+
   &:hover {
     box-shadow: @box-shadow-hover;
     transform: translateY(-2px);
@@ -111,7 +122,7 @@
   justify-content: space-between;
   align-items: center;
   transition: background-color 0.3s ease;
-  
+
   h3 {
     margin: 0;
     font-size: 16px;
@@ -121,7 +132,7 @@
     align-items: center;
     gap: 8px;
   }
-  
+
   &-actions {
     display: flex;
     gap: 8px;
@@ -150,48 +161,48 @@
     width: 6px;
     height: 6px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 3px;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: #c1c1c1;
     border-radius: 3px;
   }
-  
+
   &::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
   }
-  
+
   &:hover {
     border-color: @primary-color;
     box-shadow: 0 2px 8px rgba(24, 144, 255, 0.1);
   }
-  
+
   /* 表单元素样式 */
   .ant-form-item {
     margin-bottom: 16px;
     transition: all 0.3s ease;
-    
+
     &:last-child {
       margin-bottom: 0;
     }
-    
+
     &:hover {
       .ant-form-item-label {
         color: @primary-color;
       }
     }
   }
-  
+
   .ant-form-item-label {
     padding-bottom: 4px;
     transition: color 0.3s ease;
     font-weight: 500;
   }
-  
+
   .ant-input,
   .ant-select-selector,
   .ant-picker,
@@ -199,24 +210,24 @@
     border-radius: @border-radius;
     transition: all 0.3s ease;
     border-color: @border-color;
-    
+
     &:hover {
       border-color: @primary-color;
       box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
     }
-    
+
     &:focus {
       border-color: @primary-color;
       box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
     }
   }
-  
+
   .ant-btn {
     border-radius: @border-radius;
     transition: all 0.3s ease;
     font-weight: 500;
     padding: 4px 16px;
-    
+
     &:not(:disabled):hover {
       transform: translateY(-1px);
       box-shadow: 0 2px 8px rgba(24, 144, 255, 0.2);
@@ -232,30 +243,30 @@
   border-radius: @border-radius;
   border: 2px dashed @border-color;
   transition: all 0.3s ease;
-  
+
   &:hover {
     border-color: @primary-color;
     background-color: #f0f7ff;
   }
-  
+
   &-icon {
     font-size: 64px;
     color: #cbd5e1;
     margin-bottom: 20px;
     transition: color 0.3s ease;
-    
+
     .preview-widget-page__empty-state:hover & {
       color: @primary-color;
     }
   }
-  
+
   &-text {
     font-size: 16px;
     color: @text-color-secondary;
     line-height: 1.6;
     margin-bottom: 16px;
   }
-  
+
   &-action {
     margin-top: 8px;
   }
@@ -269,13 +280,13 @@
   border: 1px solid #bae7ff;
   border-radius: @border-radius;
   transition: all 0.3s ease;
-  
+
   &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
-    
+
     h4 {
       margin: 0;
       font-size: 14px;
@@ -283,7 +294,7 @@
       color: @primary-color;
     }
   }
-  
+
   &-content {
     font-size: 14px;
     color: @text-color;
@@ -303,22 +314,22 @@
   margin-right: 8px;
   margin-bottom: 8px;
   transition: all 0.3s ease;
-  
+
   &--primary {
     background-color: #e6f7ff;
     color: @primary-color;
   }
-  
+
   &--success {
     background-color: #f6ffed;
     color: @success-color;
   }
-  
+
   &--warning {
     background-color: #fff7e6;
     color: @warning-color;
   }
-  
+
   &--error {
     background-color: #fff2f0;
     color: @error-color;
@@ -337,56 +348,56 @@
     padding: 16px;
     background-size: 20px 20px;
   }
-  
+
   .preview-widget-page__header {
     margin-bottom: 16px;
     padding-bottom: 12px;
-    
+
     &-title {
       font-size: 20px;
     }
   }
-  
+
   .preview-widget-page__container {
     width: 100%;
   }
-  
+
   .preview-widget-page__card {
     margin-bottom: 16px;
   }
-  
+
   .preview-widget-page__card-header,
   .preview-widget-page__card-body {
     padding: 16px;
   }
-  
+
   .preview-widget-page__card-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .preview-widget-page__card-header-actions {
     width: 100%;
     justify-content: flex-end;
   }
-  
+
   .preview-widget-page__form-container {
     padding: 16px;
-    
+
     .ant-form-item {
       margin-bottom: 12px;
     }
-    
+
     .ant-btn {
       width: 100%;
       margin-top: 8px;
     }
   }
-  
+
   .preview-widget-page__empty-state {
     padding: 48px 16px;
-    
+
     &-icon {
       font-size: 48px;
     }
@@ -397,25 +408,17 @@
   .preview-widget-page {
     padding: 12px;
   }
-  
+
   .preview-widget-page__header-title {
     font-size: 18px;
   }
-  
+
   .preview-widget-page__card-header,
   .preview-widget-page__card-body {
     padding: 12px;
   }
-  
+
   .preview-widget-page__form-container {
     padding: 12px;
   }
-}
-
-.ant-spin-nested-loading, .ant-spin {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

@@ -23,34 +23,34 @@ import { Type } from './Draw/interface';
 // 模拟的点位数据
 const mockLocationData = {
   data: [
-    {
-      id: '1',
-      lat: '35.965781',
-      lng: '120.205252',
-      text: '位置1',
-      scale: false,
-    },
-    {
-      id: '2',
-      lat: '35.975781',
-      lng: '120.215252',
-      text: '位置2',
-      scale: false,
-    },
-    {
-      id: '3',
-      lat: '35.985781',
-      lng: '120.225252',
-      text: '位置3',
-      scale: false,
-    },
-    {
-      id: '4',
-      lat: '35.995781',
-      lng: '120.235252',
-      text: '位置4',
-      scale: false,
-    },
+    // {
+    //   id: '1',
+    //   lat: '35.965781',
+    //   lng: '120.205252',
+    //   text: '位置1',
+    //   scale: false,
+    // },
+    // {
+    //   id: '2',
+    //   lat: '35.975781',
+    //   lng: '120.215252',
+    //   text: '位置2',
+    //   scale: false,
+    // },
+    // {
+    //   id: '3',
+    //   lat: '35.985781',
+    //   lng: '120.225252',
+    //   text: '位置3',
+    //   scale: false,
+    // },
+    // {
+    //   id: '4',
+    //   lat: '35.995781',
+    //   lng: '120.235252',
+    //   text: '位置4',
+    //   scale: false,
+    // },
   ],
 };
 

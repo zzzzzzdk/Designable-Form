@@ -14,7 +14,9 @@ Select.Behavior = createBehavior({
   extends: ['Field'],
   selector: (node) => node.props['x-component'] === 'Select',
   designerProps: {
-    propsSchema: createFieldSchema(AllSchemas.Select, AllSchemas.FormItem, { includeEnum: true }),
+    propsSchema: createFieldSchema(AllSchemas.Select, AllSchemas.FormItem, {
+      includeEnum: true,
+    }),
   },
   designerLocales: AllLocales.Select,
 });
@@ -28,6 +30,9 @@ Select.Resource = createResource({
         title: 'Select',
         'x-decorator': 'FormItem',
         'x-component': 'Select',
+        'x-component-props': {
+          placeholder: '请选择',
+        },
       },
     },
   ],

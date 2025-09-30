@@ -5,6 +5,7 @@ import { DnFC } from '@/packages/designable-react';
 import { createFieldSchema } from '../Field';
 import { AllSchemas } from '../../schemas';
 import { AllLocales } from '../../locales';
+import { planepoint } from '@turf/turf';
 
 export const TreeSelect: DnFC<React.ComponentProps<typeof FormilyTreeSelect>> =
   FormilyTreeSelect;
@@ -28,6 +29,9 @@ TreeSelect.Resource = createResource({
         title: 'TreeSelect',
         'x-decorator': 'FormItem',
         'x-component': 'TreeSelect',
+        'x-component-props': {
+          placeholder: '请选择',
+        },
       },
     },
   ],

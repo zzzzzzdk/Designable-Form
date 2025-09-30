@@ -129,6 +129,9 @@ export const TreeSelect: ISchema = {
       type: 'string',
       'x-decorator': 'FormItem',
       'x-component': 'Input',
+      'x-component-props': {
+        defaultValue: '请选择',
+      },
     },
     size: {
       type: 'string',
