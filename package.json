@@ -26,6 +26,7 @@
     "@types/react-router-dom": "^5.3.3",
     "antd": "^5.8.0",
     "cross-env": "^7.0.3",
+    "js-cookie": "^3.0.5",
     "jsencrypt": "^3.5.4",
     "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
