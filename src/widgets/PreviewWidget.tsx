@@ -37,6 +37,7 @@ import {
   CheckableTag,
   YisaMap,
   FormButton,
+  ColorPicker,
 } from '@/packages/designable-formily-antd';
 import { Card, Slider, Rate, Spin, App } from 'antd';
 import { TreeNode } from '@/packages/designable-core';
@@ -262,6 +263,7 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
         YisaMap,
         MyCustom,
         FormButton,
+        ColorPicker
       },
     });
   }, []);

@@ -4,6 +4,7 @@ export * from './FormLayout';
 export * from './CSSStyle';
 export * from './Form';
 export * from './FormItem';
+export * from './ColorPicker';
 export * from './Select';
 export * from './Card';
 export * from './Cascader';

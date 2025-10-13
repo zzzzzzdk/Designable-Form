@@ -2,6 +2,7 @@ export * from './Component';
 export * from './Field';
 export * from './Input';
 export * from './Select';
+export * from './ColorPicker';
 export * from './TextArea';
 export * from './TreeSelect';
 export * from './Cascader';

@@ -57,3 +57,4 @@ export * from './imageZoom';
 export * from './tagSelect';
 export * from './mapPoint';
 export * from './button';
+export * from './colorPicker'

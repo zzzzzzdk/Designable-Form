@@ -66,6 +66,7 @@ import {
   CheckableTag,
   YisaMap,
   FormButton,
+  ColorPicker
 } from '@/packages/designable-formily-antd';
 import {
   SettingsForm,
@@ -167,6 +168,7 @@ function App() {
     CheckableTag,
     YisaMap,
     FormButton,
+    ColorPicker
   };
 
   // 定义应用渲染内容
@@ -208,6 +210,7 @@ function App() {
                   TimePicker.RangePicker,
                   Upload,
                   Switch,
+                  ColorPicker,
                   ObjectContainer,
                   // MyCustom,
                 ]}

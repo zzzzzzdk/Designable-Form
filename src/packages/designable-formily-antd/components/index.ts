@@ -6,6 +6,7 @@ export * from './TreeSelect';
 export * from './Cascader';
 export * from './Radio';
 export * from './Checkbox';
+export * from './ColorPicker';
 export * from './Slider';
 export * from './Rate';
 export * from './NumberPicker';
@@ -32,3 +33,4 @@ export * from './ImgZoom';
 export * from './CheckableTag';
 export * from './YisaMap';
 export * from './FormButton';
+export * from './ColorPicker'
