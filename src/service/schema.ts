@@ -6,12 +6,24 @@ import {
 } from '@/packages/designable-formily-transformer'
 import { uid } from '@/packages/designable-shared'
 
-export const saveSchema = (designer: Engine, messageApi: any) => {
+export const saveSchema = (designer: Engine, messageApi: any, type: "save" | "publish") => {
+  const formilySchema: IFormilySchema = transformToSchema(designer.getCurrentTree())
   localStorage.setItem(
     'formily-schema',
-    JSON.stringify(transformToSchema(designer.getCurrentTree()))
+    JSON.stringify(formilySchema)
   )
-  messageApi.success('Save Success')
+  // messageApi.success('Save Success')
+
+  const params = new URLSearchParams(document.location.search);
+  const origin = params.get('origin')
+
+  if(origin) {
+    window.parent.postMessage({
+      type,
+      payload: {formilySchema, screenType: designer.screen.type},
+      source:'iframe'
+    }, origin)
+  }
 }
 
 export const loadInitialSchema = (designer: Engine) => {
