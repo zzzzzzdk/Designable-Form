@@ -6,7 +6,7 @@ import {
 } from '@/packages/designable-formily-transformer'
 import { uid } from '@/packages/designable-shared'
 
-export const saveSchema = (designer: Engine, messageApi: any, type: "save" | "publish") => {
+export const saveSchema = (designer: Engine, messageApi: any, type?: "save" | "publish") => {
   const formilySchema: IFormilySchema = transformToSchema(designer.getCurrentTree())
   localStorage.setItem(
     'formily-schema',
