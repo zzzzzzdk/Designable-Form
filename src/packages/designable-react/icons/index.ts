@@ -57,4 +57,9 @@ export * from './imageZoom';
 export * from './tagSelect';
 export * from './mapPoint';
 export * from './button';
-export * from './colorPicker'
+export * from './colorPicker';
+export * from './title';
+export * from './paragraph';
+export * from './divider';
+export * from './gridRow';
+export * from './gridCol'

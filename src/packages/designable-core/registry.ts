@@ -36,7 +36,10 @@ const reSortBehaviors = (target: IBehavior[], sources: IDesignerBehaviors) => {
   const findTargetBehavior = (behavior: IBehavior) => target.includes(behavior);
   const findSourceBehavior = (name: string) => {
     for (let key in sources) {
-      const { Behavior } = sources[key];
+      const source = sources[key];
+      if (!source || !isBehaviorHost(source)) continue;
+      const { Behavior } = source;
+      if (!Behavior || !Array.isArray(Behavior)) continue;
       for (let i = 0; i < Behavior.length; i++) {
         if (Behavior[i].name === name) return Behavior[i];
       }

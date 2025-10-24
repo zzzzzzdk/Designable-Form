@@ -68,6 +68,24 @@ import {
   FormButton,
   ColorPicker
 } from '@/packages/designable-formily-antd';
+
+// 导入布局和UI组件
+import {
+  Title,
+  Paragraph,
+  Divider
+} from '@/packages/designable-layout-antd/components';
+
+import {
+  GridRow,
+  GridCol,
+  Flex
+} from '@/packages/designable-layout-antd/layouts';
+
+// 导入schemas、locales和behaviors
+import * as LayoutSchemas from '@/packages/designable-layout-antd/schemas';
+import LayoutLocales from '@/packages/designable-layout-antd/locales';
+import LayoutBehaviors from '@/packages/designable-layout-antd/behaviors';
 import {
   SettingsForm,
   setNpmCDNRegistry,
@@ -86,6 +104,10 @@ import {
 } from '@/widgets';
 
 setNpmCDNRegistry();
+
+// 注册布局组件的locales和behaviors
+GlobalRegistry.registerDesignerLocales(LayoutLocales);
+GlobalRegistry.registerDesignerBehaviors(LayoutBehaviors);
 
 function App() {
   useKeepAliveRouter('designable-app');
@@ -168,7 +190,15 @@ function App() {
     CheckableTag,
     YisaMap,
     FormButton,
-    ColorPicker
+    ColorPicker,
+    // 新增UI组件
+    Title,
+    Paragraph,
+    Divider,
+    // 新增布局组件
+    GridRow,
+    GridCol,
+    Flex
   };
 
   // 定义应用渲染内容
@@ -227,6 +257,15 @@ function App() {
                 ]}
               />
               <ResourceWidget
+                title="展示组件"
+                sources={[
+                  Text,
+                  Title,
+                  Paragraph,
+                  Divider,
+                ]}
+              />
+              <ResourceWidget
                 title="业务组件"
                 sources={[
                   // MyCustom,
@@ -242,7 +281,6 @@ function App() {
                 title="自增组件"
                 sources={[ArrayCards, ArrayTable]}
               />
-              <ResourceWidget title="展示组件" sources={[Text]} />
             </CompositePanel.Item>
             <CompositePanel.Item title="panels.OutlinedTree" icon="Outline">
               <OutlineTreeWidget />

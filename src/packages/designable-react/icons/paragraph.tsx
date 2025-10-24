@@ -1,0 +1,7 @@
+import React from 'react';
+
+export const Paragraph = (
+  <svg>
+    <path d="M140,180 L860,180 L860,220 L140,220 L140,180 Z M140,260 L820,260 L820,300 L140,300 L140,260 Z M140,340 L780,340 L780,380 L140,380 L140,340 Z M140,420 L840,420 L840,460 L140,460 L140,420 Z"></path>
+  </svg>
+);
