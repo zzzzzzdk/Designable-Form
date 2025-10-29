@@ -73,18 +73,13 @@ import {
 import {
   Title,
   Paragraph,
-  Divider
-} from '@/packages/designable-layout-antd/components';
-
-import {
-  GridRow,
-  GridCol,
-  Flex
-} from '@/packages/designable-layout-antd/layouts';
+  Divider,
+  Table
+} from '@/packages/designable-layout-antd';
 
 // 导入schemas、locales和behaviors
 import * as LayoutSchemas from '@/packages/designable-layout-antd/schemas';
-import LayoutLocales from '@/packages/designable-layout-antd/locales';
+import { AllLocales as LayoutLocales} from '@/packages/designable-layout-antd/locales';
 import LayoutBehaviors from '@/packages/designable-layout-antd/behaviors';
 import {
   SettingsForm,
@@ -104,10 +99,6 @@ import {
 } from '@/widgets';
 
 setNpmCDNRegistry();
-
-// 注册布局组件的locales和behaviors
-GlobalRegistry.registerDesignerLocales(LayoutLocales);
-GlobalRegistry.registerDesignerBehaviors(LayoutBehaviors);
 
 function App() {
   useKeepAliveRouter('designable-app');
@@ -135,6 +126,12 @@ function App() {
       }),
     [],
   );
+
+  // 注册布局组件的locales、behaviors和图标
+  useEffect(() => {
+    GlobalRegistry.registerDesignerLocales(LayoutLocales);
+    GlobalRegistry.registerDesignerBehaviors(LayoutBehaviors);
+  }, [engine]);
 
   // const handleSave = () => {
   //   console.log(JSON.stringify(transformToSchema(engine.getCurrentTree())));
@@ -195,10 +192,7 @@ function App() {
     Title,
     Paragraph,
     Divider,
-    // 新增布局组件
-    GridRow,
-    GridCol,
-    Flex
+    Table
   };
 
   // 定义应用渲染内容
@@ -263,6 +257,7 @@ function App() {
                   Title,
                   Paragraph,
                   Divider,
+                  Table,
                 ]}
               />
               <ResourceWidget

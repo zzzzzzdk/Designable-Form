@@ -1,7 +1,7 @@
 import { ISchema } from '@formily/json-schema';
-import { FormGrid } from '@formily/antd-v5';
+import { FormGrid, FormItem, Input, Switch, NumberPicker } from '@formily/antd-v5';
 
-export default (): ISchema => {
+export const Paragraph = (): ISchema => {
   return {
     type: 'object',
     properties: {
@@ -70,39 +70,14 @@ export default (): ISchema => {
             type: 'number',
             title: '显示行数',
             'x-decorator': 'FormItem',
-            'x-component': 'InputNumber',
+            'x-component': 'NumberPicker',
             'x-component-props': {
               min: 1,
               max: 10
-            },
-            default: 3
-          },
-          expandable: {
-            type: 'boolean',
-            title: '可展开',
-            'x-decorator': 'FormItem',
-            'x-component': 'Switch',
-            default: true
+            }
           }
         }
       },
-      // 样式设置
-      className: {
-        type: 'string',
-        title: 'CSS类名',
-        'x-decorator': 'FormItem',
-        'x-component': 'Input',
-      },
-      style: {
-        type: 'object',
-        title: '样式设置',
-        'x-decorator': 'FormItem',
-        'x-component': 'Input.JSON',
-        'x-component-props': {
-          placeholder: '{"color": "#333", "fontSize": "14px", "lineHeight": "1.5"}'
-        },
-        default: {}
-      }
     }
   };
 };

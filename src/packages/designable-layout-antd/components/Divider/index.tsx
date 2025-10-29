@@ -1,29 +1,47 @@
 import React from 'react';
 import { Divider as AntDivider } from 'antd';
-import { createResource } from '@/packages/designable-core';
+import { createBehavior, createResource } from '@/packages/designable-core';
+import { AllSchemas } from '@/packages/designable-layout-antd/schemas';
+import { AllLocales } from '@/packages/designable-layout-antd/locales';
 import type { DnFC } from '@/packages/designable-react';
-import { DividerLocales } from '../../locales';
-import DividerBehavior from '../../behaviors/Divider';
-// 暂时注释掉图标导入
 
 export interface DividerProps extends React.ComponentProps<typeof AntDivider> {
-  type?: 'horizontal' | 'vertical';
-  orientation?: 'left' | 'right' | 'center';
-  plain?: boolean;
-  dashed?: boolean;
   children?: React.ReactNode;
 }
 
-export const Divider: DnFC<DividerProps> = AntDivider;
-
-// 使用我们创建的独立Behavior
-Divider.Behavior = {
-  ...DividerBehavior,
-  designerLocales: DividerLocales,
+export const Divider: DnFC<DividerProps> = (props) => {
+  const { children, ...rest } = props;
+  
+  return (
+    <div style={{ 
+      minHeight: '20px', 
+      padding: '8px 0',
+      border: '1px dashed #ccc',
+      borderRadius: '4px'
+    }}>
+      <AntDivider {...rest}>
+        {children}
+      </AntDivider>
+    </div>
+  );
 };
 
+Divider.Behavior = createBehavior({
+  name: 'Divider',
+  selector: (node) => node.componentName === 'Divider',
+  designerProps: {
+    draggable: true,
+    droppable: false,
+    cloneable: true,
+    deletable: true,
+    resizable: false,
+    propsSchema: AllSchemas.Divider(),
+  },
+  designerLocales: AllLocales.Divider,
+});
+
 Divider.Resource = createResource({
-  icon: 'Divider',
+  icon: 'DividerSource',
   elements: [
     {
       componentName: 'Divider',
@@ -40,29 +58,11 @@ Divider.Resource = createResource({
   ],
 });
 
-// 增强Preview组件，更好地处理默认值
 export const Preview: React.FC<DividerProps> = (props) => {
-  const { 
-    type = 'horizontal',
-    orientation = 'center',
-    plain = false,
-    dashed = false,
-    children,
-    className,
-    style,
-    ...rest 
-  } = props;
+  const { children, ...rest } = props;
   
   return (
-    <AntDivider 
-      type={type}
-      orientation={orientation}
-      plain={plain}
-      dashed={dashed}
-      className={className}
-      style={style}
-      {...rest}
-    >
+    <AntDivider {...rest}>
       {children}
     </AntDivider>
   );

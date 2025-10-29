@@ -1,8 +1,7 @@
 import { ISchema } from '@formily/json-schema';
-import { createSchemaField } from '@formily/react';
 import { Input, Select, Switch, FormGrid, FormItem } from '@formily/antd-v5';
 
-export default (): ISchema => {
+export const Title = (): ISchema => {
   return {
     type: 'object',
     properties: {
@@ -64,16 +63,6 @@ export default (): ISchema => {
         'x-decorator': 'FormItem',
         'x-component': 'Input',
       },
-      style: {
-        type: 'object',
-        title: '样式设置',
-        'x-decorator': 'FormItem',
-        'x-component': 'Input.JSON',
-        'x-component-props': {
-          placeholder: '{"color": "#1890ff", "fontSize": "16px"}'
-        },
-        default: {}
-      }
     }
   };
 };

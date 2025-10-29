@@ -60,6 +60,5 @@ export * from './button';
 export * from './colorPicker';
 export * from './title';
 export * from './paragraph';
+export * from './table';
 export * from './divider';
-export * from './gridRow';
-export * from './gridCol'

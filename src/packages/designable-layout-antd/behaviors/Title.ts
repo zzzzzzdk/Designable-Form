@@ -1,10 +1,9 @@
 import { createBehavior } from '@/packages/designable-core';
-import TitleSchemaFn from '../schemas/Title';
+import { Title as TitleSchema } from '../schemas/Title';
+import { Title as TitleLocales } from '../locales/Title';
 
-// 直接使用schema函数，不进行额外包装
-export default createBehavior({
+export const TitleBehavior = createBehavior({
   name: 'Title',
-  extends: ['Component'],
   selector: (node) => node.componentName === 'Title',
   designerProps: {
     draggable: true,
@@ -12,6 +11,7 @@ export default createBehavior({
     cloneable: true,
     deletable: true,
     resizable: false,
-    propsSchema: TitleSchemaFn(),
+    propsSchema: TitleSchema(),
   },
+  designerLocales: TitleLocales || {},
 });

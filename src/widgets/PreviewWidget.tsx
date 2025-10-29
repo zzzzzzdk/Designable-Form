@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { createForm } from '@formily/core';
-import { createSchemaField } from '@formily/react';
+import React, { useEffect, useMemo, useState } from "react";
+import { createForm } from "@formily/core";
+import { createSchemaField } from "@formily/react";
 import {
   Form,
   FormItem,
@@ -28,7 +28,7 @@ import {
   FormCollapse,
   ArrayTable,
   ArrayCards,
-} from '@formily/antd-v5';
+} from "@formily/antd-v5";
 import {
   MyCustom,
   FormPlate,
@@ -38,20 +38,21 @@ import {
   YisaMap,
   FormButton,
   ColorPicker,
-} from '@/packages/designable-formily-antd';
-import { Card, Slider, Rate, Spin, App } from 'antd';
-import { TreeNode } from '@/packages/designable-core';
+} from "@/packages/designable-formily-antd";
+import { Title, Paragraph, Divider, Table } from "@/packages/designable-layout-antd";
+import { Card, Slider, Rate, Spin, App } from "antd";
+import { TreeNode } from "@/packages/designable-core";
 import {
   transformToSchema,
   IFormilySchema,
-} from '@/packages/designable-formily-transformer';
+} from "@/packages/designable-formily-transformer";
 
 const Text: React.FC<{
   value?: string;
   content?: string;
-  mode?: 'normal' | 'h1' | 'h2' | 'h3' | 'p';
+  mode?: "normal" | "h1" | "h2" | "h3" | "p";
 }> = ({ value, mode, content, ...props }) => {
-  const tagName = mode === 'normal' || !mode ? 'div' : mode;
+  const tagName = mode === "normal" || !mode ? "div" : mode;
   return React.createElement(tagName, props, value || content);
 };
 export interface IPreviewWidgetProps {
@@ -63,7 +64,7 @@ export interface IPreviewWidgetProps {
 function getByPath(obj: any, path: string): any {
   if (!path) return obj;
   const data = path
-    .split('/')
+    .split("/")
     .reduce((acc, k) => (acc ? acc[k] : undefined), obj);
   //   console.log('getByPath', obj, path, data);
   return data;
@@ -73,7 +74,7 @@ function mapToEnum(
   list: any[],
   labelKey: string,
   valueKey: string,
-  childrenKey?: string,
+  childrenKey?: string
 ) {
   if (!Array.isArray(list)) return [];
   return list.map((item, index) => {
@@ -105,7 +106,7 @@ function buildUrlWithQuery(url: string, query?: Record<string, any>) {
     if (Array.isArray(v)) v.forEach((vv) => usp.append(k, String(vv)));
     else usp.append(k, String(v));
   });
-  const sep = url.includes('?') ? '&' : '?';
+  const sep = url.includes("?") ? "&" : "?";
   return url + sep + usp.toString();
 }
 
@@ -132,7 +133,7 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
 
     // console.log('PreviewWidget useEffect executed, schema:', JSON.stringify(schema));
     const traverse = (node: any) => {
-      if (!node || typeof node !== 'object') return;
+      if (!node || typeof node !== "object") return;
       if (
         Array.isArray(node.enum) &&
         node.enum[0] &&
@@ -153,8 +154,8 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
         } = cfg;
         const reqUrl = buildUrlWithQuery(url, query);
         const init: RequestInit = { method, headers: { ...(headers || {}) } };
-        if (method !== 'GET' && method !== 'DELETE') {
-          if (bodyType === 'form') {
+        if (method !== "GET" && method !== "DELETE") {
+          if (bodyType === "form") {
             const formBody = new URLSearchParams();
             Object.entries(body || {}).forEach(([k, v]) => {
               if (Array.isArray(v))
@@ -163,13 +164,13 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
                 formBody.append(k, String(v));
             });
             init.body = formBody;
-            (init.headers as any)['Content-Type'] =
-              'application/x-www-form-urlencoded;charset=UTF-8';
+            (init.headers as any)["Content-Type"] =
+              "application/x-www-form-urlencoded;charset=UTF-8";
           } else {
             init.body =
-              typeof body === 'string' ? body : JSON.stringify(body || {});
-            (init.headers as any)['Content-Type'] =
-              'application/json;charset=UTF-8';
+              typeof body === "string" ? body : JSON.stringify(body || {});
+            (init.headers as any)["Content-Type"] =
+              "application/json;charset=UTF-8";
           }
         }
         const task = fetch(reqUrl, init)
@@ -182,22 +183,22 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
             const data = getByPath(json, path);
             node.enum = mapToEnum(
               data,
-              labelKey || 'label',
-              valueKey || 'value',
-              childrenKey,
+              labelKey || "label",
+              valueKey || "value",
+              childrenKey
             );
           })
           .catch((err) => {
             if (!aborted)
-              messageApi.error(`可选项加载失败: ${err.message || '网络错误'}`);
+              messageApi.error(`可选项加载失败: ${err.message || "网络错误"}`);
             node.enum = [];
           });
         fetchTasks.push(task);
       }
-      if (node.items && typeof node.items === 'object') traverse(node.items);
-      if (node.properties && typeof node.properties === 'object') {
+      if (node.items && typeof node.items === "object") traverse(node.items);
+      if (node.properties && typeof node.properties === "object") {
         Object.keys(node.properties).forEach((k) =>
-          traverse(node.properties[k]),
+          traverse(node.properties[k])
         );
       }
     };
@@ -225,6 +226,17 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
   // }, [runtimeSchema]);
 
   const SchemaField = useMemo(() => {
+    // 为Table组件创建一个包装器，确保属性正确传递
+    const TableWrapper = (props: any) => {
+      // 确保columns和dataSource属性是正确的数组格式
+      const safeProps = {
+        ...props,
+        columns: Array.isArray(props.columns) ? props.columns : undefined,
+        dataSource: Array.isArray(props.dataSource) ? props.dataSource : undefined,
+      };
+      return <Table {...safeProps} />;
+    };
+    
     return createSchemaField({
       components: {
         Space,
@@ -263,14 +275,18 @@ export const PreviewWidget: React.FC<IPreviewWidgetProps> = (props) => {
         YisaMap,
         MyCustom,
         FormButton,
-        ColorPicker
+        ColorPicker,
+        Title,
+        Paragraph,
+        Divider,
+        Table: TableWrapper,
       },
     });
   }, []);
 
   return (
     <Form {...formProps} form={form}>
-      <Spin spinning={loading} style={{ minHeight: '300px' }}>
+      <Spin spinning={loading} style={{ minHeight: "300px" }}>
         <SchemaField schema={runtimeSchema} />
       </Spin>
     </Form>

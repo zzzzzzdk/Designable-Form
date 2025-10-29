@@ -7,12 +7,29 @@ import {
 import { uid } from '@/packages/designable-shared'
 
 export const saveSchema = (designer: Engine, messageApi: any, type?: "save" | "publish") => {
-  const formilySchema: IFormilySchema = transformToSchema(designer.getCurrentTree())
-  localStorage.setItem(
-    'formily-schema',
-    JSON.stringify(formilySchema)
-  )
-  // messageApi.success('Save Success')
+  console.log('开始保存schema...')
+  const currentTree = designer.getCurrentTree()
+  console.log('当前设计树:', currentTree)
+  
+  const formilySchema: IFormilySchema = transformToSchema(currentTree)
+  console.log('转换后的Formily Schema:', formilySchema)
+  
+  const schemaString = JSON.stringify(formilySchema)
+  console.log('JSON字符串:', schemaString)
+  
+  localStorage.setItem('formily-schema', schemaString)
+  
+  // 验证保存是否成功
+  const savedSchema = localStorage.getItem('formily-schema')
+  console.log('保存到localStorage后的数据:', savedSchema)
+  
+  if (savedSchema) {
+    console.log('保存成功!')
+    messageApi.success('保存成功')
+  } else {
+    console.log('保存失败!')
+    messageApi.error('保存失败')
+  }
 
   const params = new URLSearchParams(document.location.search);
   const origin = params.get('origin')

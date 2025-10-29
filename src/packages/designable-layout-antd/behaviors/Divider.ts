@@ -1,9 +1,9 @@
 import { createBehavior } from '@/packages/designable-core';
-import DividerSchemaFn from '../schemas/Divider';
+import { Divider as DividerSchema } from '../schemas/Divider';
+import { Divider as DividerLocales } from '../locales/Divider';
 
-export default createBehavior({
+export const DividerBehavior = createBehavior({
   name: 'Divider',
-  extends: ['Component'],
   selector: (node) => node.componentName === 'Divider',
   designerProps: {
     draggable: true,
@@ -11,6 +11,7 @@ export default createBehavior({
     cloneable: true,
     deletable: true,
     resizable: false,
-    propsSchema: DividerSchemaFn(),
+    propsSchema: DividerSchema(),
   },
+  designerLocales: DividerLocales || {},
 });

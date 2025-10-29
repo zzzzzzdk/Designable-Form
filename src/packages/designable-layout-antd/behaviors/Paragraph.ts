@@ -1,9 +1,9 @@
 import { createBehavior } from '@/packages/designable-core';
-import ParagraphSchemaFn from '../schemas/Paragraph';
+import { Paragraph as ParagraphSchema } from '../schemas/Paragraph';
+import { Paragraph as ParagraphLocales } from '../locales/Paragraph';
 
-export default createBehavior({
+export const ParagraphBehavior = createBehavior({
   name: 'Paragraph',
-  extends: ['Component'],
   selector: (node) => node.componentName === 'Paragraph',
   designerProps: {
     draggable: true,
@@ -11,6 +11,7 @@ export default createBehavior({
     cloneable: true,
     deletable: true,
     resizable: false,
-    propsSchema: ParagraphSchemaFn(),
+    propsSchema: ParagraphSchema(),
   },
+  designerLocales: ParagraphLocales || {},
 });

@@ -1,4 +1,4 @@
-export default {
+export const Component = {
   'zh-CN': {
     common: {
       title: '标题',

@@ -1,18 +1,21 @@
 // UI Components
-import Title, { Preview as TitlePreview } from './Title';
-import Paragraph, { Preview as ParagraphPreview } from './Paragraph';
-import Divider, { Preview as DividerPreview } from './Divider';
+import Title from './Title';
+import Paragraph from './Paragraph';
+import Divider from './Divider';
+import Table from './Table';
 
 // Export components
 export {
   Title,
   Paragraph,
   Divider,
+  Table,
 };
 
 // Export preview components
 export const Previews = {
-  Title: TitlePreview,
-  Paragraph: ParagraphPreview,
-  Divider: DividerPreview,
+  Title: Title,
+  Paragraph: Paragraph,
+  Divider: Divider,
+  Table: Table,
 };

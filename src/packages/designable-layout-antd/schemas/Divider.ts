@@ -1,7 +1,7 @@
 import { ISchema } from '@formily/json-schema';
-import { FormGrid } from '@formily/antd-v5';
+import { FormGrid, FormItem, Select, Input, Switch } from '@formily/antd-v5';
 
-export default (): ISchema => {
+export const Divider = (): ISchema => {
   return {
     type: 'object',
     properties: {
@@ -64,17 +64,6 @@ export default (): ISchema => {
           }
         }
       },
-      // 样式设置
-      style: {
-        type: 'object',
-        title: '样式设置',
-        'x-decorator': 'FormItem',
-        'x-component': 'Input.JSON',
-        'x-component-props': {
-          placeholder: '{"color": "#f0f0f0", "margin": "16px 0"}'
-        },
-        default: {}
-      }
     }
   };
 };

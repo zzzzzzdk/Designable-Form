@@ -43,22 +43,38 @@ export const transformToSchema = (
     properties: {},
   };
   if (!root) return { schema };
+  
+  // 定义布局组件的componentName列表
+  const layoutComponentNames = [
+    'Title', 'Paragraph', 'Divider', 'Flex', 'Table'
+  ];
+  
   const createSchema = (node: ITreeNode, schema: ISchema = {}) => {
     if (node !== root) {
       Object.assign(schema, clone(node.props));
     }
     schema['x-designable-id'] = node.id;
+    
+    // 为designable-layout-antd组件设置x-component属性
+    if (layoutComponentNames.includes(node.componentName)) {
+      schema['x-component'] = node.componentName;
+    }
+    
     if (schema.type === 'array') {
       if (node.children[0]) {
         if (
-          node.children[0].componentName === realOptions.designableFieldName
+          node.children[0].componentName === realOptions.designableFieldName ||
+          layoutComponentNames.includes(node.children[0].componentName)
         ) {
           schema.items = createSchema(node.children[0]);
           schema['x-index'] = 0;
         }
       }
       node.children.slice(1).forEach((child, index) => {
-        if (child.componentName !== realOptions.designableFieldName) return;
+        if (
+          child.componentName !== realOptions.designableFieldName &&
+          !layoutComponentNames.includes(child.componentName)
+        ) return;
         const key = child.props.name || child.id;
         schema.properties = schema.properties || {};
         schema.properties[key] = createSchema(child);
@@ -66,7 +82,10 @@ export const transformToSchema = (
       });
     } else {
       node.children.forEach((child, index) => {
-        if (child.componentName !== realOptions.designableFieldName) return;
+        if (
+          child.componentName !== realOptions.designableFieldName &&
+          !layoutComponentNames.includes(child.componentName)
+        ) return;
         const key = child.props.name || child.id;
         schema.properties = schema.properties || {};
         schema.properties[key] = createSchema(child);
@@ -89,6 +108,12 @@ export const transformToTreeNode = (
     children: [],
   };
   const schema = new Schema(formily.schema);
+  
+  // 定义布局组件的componentName列表，与transformToSchema保持一致
+  const layoutComponentNames = [
+    'Title', 'Paragraph', 'Divider', 'Flex', 'Table'
+  ];
+  
   const cleanProps = (props: any) => {
     if (props['name'] === props['x-designable-id']) {
       delete props.name;
@@ -97,26 +122,42 @@ export const transformToTreeNode = (
     delete props['_isJSONSchemaObject'];
     return props;
   };
+  
   const appendTreeNode = (parent: ITreeNode, schema: Schema) => {
     if (!schema) return;
+    
+    // 获取schema的JSON数据
+    const schemaJson = schema.toJSON(false);
+    
+    // 确定组件名称：优先使用x-component（如果是布局组件），否则使用默认的designableFieldName
+    let componentName = realOptions.designableFieldName;
+    if (schemaJson['x-component'] && layoutComponentNames.includes(schemaJson['x-component'])) {
+      componentName = schemaJson['x-component'];
+    }
+    
     const current = {
       id: schema['x-designable-id'] || uid(),
-      componentName: realOptions.designableFieldName,
-      props: cleanProps(schema.toJSON(false)),
+      componentName: componentName,
+      props: cleanProps(schemaJson),
       children: [],
     };
+    
     parent.children.push(current);
+    
     if (schema.items && !Array.isArray(schema.items)) {
       appendTreeNode(current, schema.items);
     }
+    
     schema.mapProperties((schema) => {
       schema['x-designable-id'] = schema['x-designable-id'] || uid();
       appendTreeNode(current, schema);
     });
   };
+  
   schema.mapProperties((schema) => {
     schema['x-designable-id'] = schema['x-designable-id'] || uid();
     appendTreeNode(root, schema);
   });
+  
   return root;
 };
