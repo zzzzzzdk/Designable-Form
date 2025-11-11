@@ -51,7 +51,7 @@ Title.Behavior = createBehavior({
 });
 
 Title.Resource = createResource({
-  icon: 'TitleSource',
+  icon: 'Title',
   elements: [
     {
       componentName: 'Title',

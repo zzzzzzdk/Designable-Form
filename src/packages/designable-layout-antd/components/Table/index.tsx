@@ -113,7 +113,7 @@ Table.Behavior = createBehavior({
 });
 
 Table.Resource = createResource({
-  icon: "TableSource",
+  icon: "Table",
   elements: [
     {
       componentName: "Table",

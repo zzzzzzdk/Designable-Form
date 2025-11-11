@@ -43,7 +43,7 @@ Paragraph.Behavior = createBehavior({
 });
 
 Paragraph.Resource = createResource({
-  icon: 'ParagraphSource',
+  icon: 'Paragraph',
   elements: [
     {
       componentName: 'Paragraph',

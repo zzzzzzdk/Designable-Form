@@ -41,7 +41,7 @@ Divider.Behavior = createBehavior({
 });
 
 Divider.Resource = createResource({
-  icon: 'DividerSource',
+  icon: 'Divider',
   elements: [
     {
       componentName: 'Divider',
